@@ -1,3 +1,10 @@
+</ About Me />
+
+I am currently a CS graduate in Northeastern University.
+I have a work experiece of one and a half year as a software developer and have been part of project developments in Microsoft .Net Framework alongwith many WebDev Technologies like HTML,CSS,JavaScript,JQuery.
+This repository is for the WebDevelopment CS 5610.
+Link to the Root of the hosted environment on Heroku: https://webdev-contractor-oneil.herokuapp.com
+
 # AngularFourMEANSeed
 
 After you clone this repository and run "npm install"
