@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Meta tags for making website for mobile-->
@@ -8,24 +8,26 @@
 
 
   <meta charset="UTF-8">
-  <title>User Profile</title>
+  <title>Website Edit</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
-
-  <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
-
-  <link href="../../src/style.css" rel="stylesheet"/>
 </head>
 
-<body>
 
+<body>
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #428bca;">
   <div class="container-fluid">
+
+    <p class="navbar-text pull-left">
+      <a href="profile.html" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left" style="color: white;" ></span>
+      </a>
+    </p>
 
     <!--heading on the nav bar-->
     <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
-        <b style="color: white;">Profile</b>
+        <b style="color: white;">New Website</b>
       </a>
     </p>
 
@@ -39,39 +41,23 @@
   </div>
 </nav>
 
-
 <div class="container">
   <form>
     <div class="form-group" style="margin-top: 70px;">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" placeholder="walice">
+      <label for="name">Website Name</label>
+      <input type="text" class="form-control" id="name" value="Blogger">
     </div>
   </form>
 
   <form>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="alice.wonderland@unicorn.com">
+      <label for="description">Website Description</label>
+      <textarea class="form-control" rows="5" id="description">Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally, the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com).[4] A user can have up to 100 blogs per account
+      </textarea>
     </div>
   </form>
 
-  <form>
-    <div class="form-group">
-      <label for="first-name">First Name</label>
-      <input type="text" class="form-control" id="first-name" placeholder="Alice">
-    </div>
-  </form>
-
-  <form>
-    <div class="form-group">
-      <label for="last-name">Last Name</label>
-      <input type="text" class="form-control" id="last-name" placeholder="Wonderland">
-    </div>
-  </form>
-  <a class="btn btn-primary btn-block"
-     href="../website/website-list.html">Websites</a>
-  <a class="btn btn-danger btn-block "
-     href="login.html" >Logout</a>
+  <a class="btn btn-danger btn-block" href="profile.html" >Delete</a>
 
 </div>
 
@@ -86,6 +72,5 @@
 
   </div>
 </nav>
-
 </body>
 </html>
