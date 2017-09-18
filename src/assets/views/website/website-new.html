@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <!-- Meta tags for making website for mobile-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -10,59 +11,122 @@
   <meta charset="UTF-8">
   <title>New Website</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../style.css">
 
 </head>
-
-
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #428bca;">
-  <div class="container-fluid">
-
-    <p class="navbar-text pull-left">
-      <a href="profile.html" class="navbar-link">
-        <span class="glyphicon glyphicon-chevron-left" style="color: white;" ></span>
-      </a>
-    </p>
-
-    <!--heading on the nav bar-->
-    <p class="navbar-header pull-left">
-      <a class="navbar-brand thick">
-        <b style="color: white;">New Website</b>
-      </a>
-    </p>
-
-    <!--tick mark-->
-    <p class="navbar-text pull-right">
-      <a href="profile.html" class="navbar-link">
-        <span class="glyphicon glyphicon-ok" style="color: white;" ></span>
-      </a>
-    </p>
-
+  <div class="row container-fluid">
+    <div class="col-sm-4 hidden-xs">
+      <div class="navbar-text pull-left" style="margin-left: 0px;">
+        <a href="../website/website-list.html">
+          <span class="glyphicon glyphicon-chevron-left" style="color: white;"></span>
+        </a>
+      </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" style="color: white;">
+          Websites
+        </a>
+      </div>
+      <div class="navbar-text pull-right">
+        <a href="../website/website-new.html">
+          <span class="glyphicon glyphicon-plus" style="color: white;"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="navbar-text pull-left" style="margin-left: 0px;">
+        <a href="../website/website-list.html">
+          <span class="glyphicon glyphicon-chevron-left" style="color: white;"></span>
+        </a>
+      </div>
+      <div class="navbar-text pull-right" style="margin-right: 0px;">
+        <a href="../website/website-list.html">
+          <span class="glyphicon glyphicon-ok" style="color: white;"></span>
+        </a>
+      </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" style="color: white;">
+          New Website
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
-<div class="container">
-  <form>
-    <div class="form-group" style="margin-top: 70px;">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Name">
+<div class="row container-fluid">
+  <div class="col-sm-4 hidden-xs"
+       style="overflow-y: scroll;top: 0px;bottom: 0px;position: absolute;left: 0px;margin-top: 50px;padding-top: 15px;margin-bottom: 50px;">
+    <div class="row">
+      <div class="col-xs-6">
+        <a href="../page/page-list.html">
+          <b style="color: #428bca;">Address Book App</b>
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a href="../website/website-edit.html" class="navbar-link pull-right">
+          <span class="glyphicon glyphicon-cog" style="color: #428bca;" ></span>
+        </a>
+      </div>
     </div>
-  </form>
-
-  <form>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea class="form-control" rows="5" id="description" placeholder="Description"></textarea>
+    <div class="row">
+      <div class="col-xs-6">
+        <a href="../page/page-list.html">
+          <b style="color: #428bca;">Blogger</b>
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a href="../website/website-edit.html" class="navbar-link pull-right">
+          <span class="glyphicon glyphicon-cog" style="color: #428bca;" ></span>
+        </a>
+      </div>
     </div>
-  </form>
+    <div class="row">
+      <div class="col-xs-6">
+        <a href="../page/page-list.html">
+          <b style="color: #428bca;">Bloggin App</b>
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a href="../website/website-edit.html" class="navbar-link pull-right">
+          <span class="glyphicon glyphicon-cog" style="color: #428bca;" ></span>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <a href="../page/page-list.html">
+          <b style="color: #428bca;">Script Testing App</b>
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a href="../website/website-edit.html" class="navbar-link pull-right">
+          <span class="glyphicon glyphicon-cog" style="color: #428bca;" ></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-8 pull-right">
+    <form>
+      <div class="form-group" style="margin-top: 70px;">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Name">
+      </div>
+    </form>
 
+    <form>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" rows="5" id="description" placeholder="Description"></textarea>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- Footer -->
 <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: #428bca;">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a href="profile.html">
+      <a href="../user/profile.html">
         <span class="glyphicon glyphicon-user" style="color: white;"></span>
       </a>
     </p>
