@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\n.col-xs-6{\r\n  padding-bottom: 100px;\r\n\r\n}\r\n", ""]);
 
 // exports
 

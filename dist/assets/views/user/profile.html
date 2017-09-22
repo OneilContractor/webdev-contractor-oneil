@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Meta tags for making website for mobile-->
@@ -14,25 +14,25 @@
 
   <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
 
-  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../../src/style.css" rel="stylesheet"/>
 </head>
 
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #428bca;">
   <div class="container-fluid">
 
     <!--heading on the nav bar-->
     <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
-        <b>Profile</b>
+        <b style="color: white;">Profile</b>
       </a>
     </p>
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
       <a href="profile.html" class="navbar-link">
-        <span class="glyphicon glyphicon-ok"></span>
+        <span class="glyphicon glyphicon-ok" style="color: white;" ></span>
       </a>
     </p>
 
@@ -42,7 +42,7 @@
 
 <div class="container">
   <form>
-    <div class="form-group">
+    <div class="form-group" style="margin-top: 70px;">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username" placeholder="walice">
     </div>
@@ -50,7 +50,7 @@
 
   <form>
     <div class="form-group">
-      <label for="email">Email address</label>
+      <label for="email">Email</label>
       <input type="email" class="form-control" id="email" placeholder="alice.wonderland@unicorn.com">
     </div>
   </form>
@@ -71,16 +71,16 @@
   <a class="btn btn-primary btn-block"
      href="../website/website-list.html">Websites</a>
   <a class="btn btn-danger btn-block "
-     href="login.html" >Logout</a>
+     href="../user/login.html" >Logout</a>
 
 </div>
 
 <!-- Footer -->
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: #428bca;">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a href="profile.html">
-        <span class="glyphicon glyphicon-user"></span>
+      <a href="../user/profile.html">
+        <span class="glyphicon glyphicon-user" style="color: white;"></span>
       </a>
     </p>
 

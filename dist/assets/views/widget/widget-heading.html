@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for making website for mobile-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="initial-scale=1.25, user-scalable=no">
+
+
+  <meta charset="UTF-8">
+  <title>Widget Edit</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-default bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <p class="navbar-text pull-left">
+      <a href="../widget/widget-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left" style="color: black;" ></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b style="color: grey;">Widget Edit</b>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right">
+      <a href="../widget/widget-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-ok" style="color: black;" ></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+<br/>
+
+<div class="container">
+  <form>
+    <div class="form-group" style="margin-top: 70px;">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="text">Text</label>
+      <input type="text" class="form-control" id="text" value="US Senate Reaches Compromise on Emergency Zika Funding">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="size">Size</label>
+      <input type="text" class="form-control" id="size" value="3">
+    </div>
+  </form>
+
+  <a class="btn btn-danger btn-block" href="../widget/widget-list.html" >Delete</a>
+
+  <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
+    <div class="container-fluid">
+      <p class="navbar-text pull-right">
+        <a href="../user/profile.html">
+          <span class="glyphicon glyphicon-user" style="color: #428bca;"></span>
+        </a>
+      </p>
+
+    </div>
+  </nav>
+
+</div>
+</body>
+</html>
