@@ -41,6 +41,13 @@
   color: #428bca;
 }
 
+.glyphicon-user,
+.glyphicon-chevron-left,
+.glyphicon-plus,
+.glyphicon-ok{
+  color: white;
+}
+
 
 .glyphicon-align-justify{
   color: black;
