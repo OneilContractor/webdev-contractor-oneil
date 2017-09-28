@@ -23,6 +23,10 @@
   top: 0px;
 }
 
+.form-padding{
+  margin-top: 70px;
+}
+
 .scroller{
   padding-top: 60px;
   padding-bottom: 60px;
@@ -37,6 +41,24 @@
   display:block;
 }
 
+.pages{
+  color: #428bca;
+}
+
+.titlePages{
+  color: grey;
+}
+
+.img-widget{
+  max-width: 100%;
+  height: auto;
+}
+
+.widget-text{
+  font-size: 20px;
+  color: black;
+}
+
 .glyphicon-cog {
   color: #428bca;
 }
@@ -48,10 +70,40 @@
   color: white;
 }
 
+.glyphicon-user-blue{
+  color: #428bca;
+}
+
+.glyphicon-black{
+  color: black;
+}
+
+.indexLinks{
+  color: #428bca;
+}
 
 .glyphicon-align-justify{
   color: black;
   margin-left: 10px
+}
+
+.titles{
+  color: white;
+}
+
+.websites{
+  margin-left: 0px;
+}
+
+.hidden-nav{
+  overflow-y: scroll;
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+  left: 0px;
+  margin-top: 50px;
+  padding-top: 15px;
+  margin-bottom: 50px;
 }
 
 
