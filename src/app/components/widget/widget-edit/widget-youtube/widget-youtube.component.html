@@ -1,0 +1,71 @@
+<nav class="navbar navbar-default bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <p class="navbar-text pull-left">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget']" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b class="titlePages">Widget Edit</b>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget']" class="navbar-link">
+        <span class="glyphicon glyphicon-ok glyphicon-black" ></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+<br/>
+
+<div class="container-fluid scroller">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="text">Text</label>
+      <input type="text" class="form-control" id="text">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="url">URL</label>
+      <input type="text" class="form-control" id="url" value="https://www.youtube.com/watch?v=Uc32z-wgxU4">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="width">Width</label>
+      <input type="text" class="form-control" id="width">
+    </div>
+  </form>
+
+  <a class="btn btn-danger btn-block" [routerLink]="['/user/:uid/website/:wid/page/:pid/widget']" >Delete</a>
+
+  <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
+    <div class="container-fluid">
+      <p class="navbar-text pull-right">
+        <a [routerLink]="['/user/:uid']">
+          <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
+        </a>
+      </p>
+
+    </div>
+  </nav>
+
+</div>
