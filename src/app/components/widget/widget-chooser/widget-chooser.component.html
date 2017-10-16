@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <p class="navbar-text pull-left">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget']" class="navbar-link">
+      <a [routerLink]="['/user', userId, 'website' , websiteId, 'page' , pageId, 'widget']" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left glyphicon-black" ></span>
       </a>
     </p>
@@ -21,63 +21,30 @@
 <br/>
 
 <div class="container-fluid scroller">
+
   <div class="row">
     <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
-        <span class="indexLinks">
-          <b>Header</b>
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a href="#">
-        <span class="indexLinks">
-          <b>Label</b>
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a href="#">
+      <a [routerLink]="['/user', userId, 'website' , websiteId, 'page' , pageId, 'widget', 'new', 'html']">
         <span class="indexLinks">
           <b>HTML</b>
         </span>
       </a>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-6">
-      <a href="#">
+      <a [routerLink]="['/user', userId, 'website' , websiteId, 'page' , pageId, 'widget', 'new', 'header']">
         <span class="indexLinks">
-          <b>Text Input</b>
+          <b>Header</b>
         </span>
       </a>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-6">
-      <a href="#">
-        <span class="indexLinks">
-          <b>Link</b>
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a href="#">
-        <span class="indexLinks">
-          <b>Button</b>
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
+      <a [routerLink]="['/user', userId, 'website' , websiteId, 'page' , pageId, 'widget', 'new', 'image']">
         <span class="indexLinks">
           <b>Image</b>
         </span>
@@ -86,36 +53,19 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
+      <a [routerLink]="['/user', userId, 'website' , websiteId, 'page' , pageId, 'widget', 'new', 'youtube']">
         <span class="indexLinks">
           <b>Youtube</b>
         </span>
       </a>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a href="#">
-        <span class="indexLinks">
-          <b>Data Table</b>
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a href="#">
-        <span class="indexLinks">
-          <b>Repeater</b>
-        </span>
-      </a>
-    </div>
-  </div>
+
 
   <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
     <div class="container-fluid">
       <p class="navbar-text pull-right">
-        <a [routerLink]="['/user/:uid']">
+        <a [routerLink]="['/user', userId]">
           <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
         </a>
       </p>

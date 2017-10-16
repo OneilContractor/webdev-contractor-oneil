@@ -26,7 +26,6 @@
     </div>
   </nav>
 </ng-template>
-
 <ng-template #new>
   <nav class="navbar navbar-default bg-primary navbar-fixed-top">
     <div class="container-fluid">
@@ -47,7 +46,7 @@
       </div>
       <!--heading on the nav bar-->
       <p class="navbar-header pull-left">
-        <a class="navbar-brand ">
+        <a class="navbar-brand titlePages">
           <b>New Widget</b>
         </a>
       </p>
@@ -58,74 +57,16 @@
 <div class="container-fluid scroller">
   <form>
     <div class="form-group">
-      <label for="nameImage">
-        Name
-      </label>
-      <input [(ngModel)]="nameImage"
-             required
-             name="nameImage"
-             type="text"
-             class="form-control"
-             id="nameImage"
-             placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="textImage">
+      <label for="textHtml">
         Text
       </label>
-      <input [(ngModel)]="textImage"
+      <input [(ngModel)]="textHtml"
+             name="textHtml"
              required
-             name="textImage"
              type="text"
              class="form-control"
-             id="textImage"
-             placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="urlImage">
-        URL
-      </label>
-      <input [(ngModel)]="urlImage"
-             required
-             name="urlImage"
-             type="text"
-             class="form-control"
-             id="urlImage"
-             placeholder="https://www.youtube.com/watch?v=ue80QwXMRHg">
-    </div>
-
-    <div class="form-group">
-      <label for="widthImage">
-        Width
-      </label>
-      <input [(ngModel)]="widthImage"
-             required
-             name="widthImage"
-             type="text"
-             class="form-control"
-             id="widthImage"
-             placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="uploadImage">
-        Upload
-      </label>
-      <input [(ngModel)]="uploadImage"
-             required
-             name="uploadImage"
-             type="file"
-             class="form-control"
-             id="uploadImage"
-             value="100%">
-    </div>
-
-    <div class="form-group">
-      <button class="form-control btn btn-primary">
-        Upload Image
-      </button>
+             id="textHtml"
+             placeholder="Home Page">
     </div>
 
     <div class="form-group">

@@ -10,7 +10,7 @@ export class UserService {
 
   constructor() {}
 
-  users: [
+  users = [
     {_id: '123', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder'  },
     {_id: '234', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley'  },
     {_id: '345', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia'  },
@@ -47,7 +47,7 @@ export class UserService {
       if (this.users[x]._id === userId) {
         this.users[x].firstName = user.firstName;
         this.users[x].lastName = user.lastName;
-        this.users[x].username = user.userName;
+        this.users[x].username = user.username;
         this.users[x].password = user.password;
         return this.users[x];
       }

@@ -1,17 +1,67 @@
 <div class="container-fluid">
   <h1>Register</h1>
-  <input placeholder="username"
-         type="text" style="margin-bottom: 5px;"
-         class="form-control"/>
-  <input placeholder="password"
-         type="password" style="margin-bottom: 5px;"
-         class="form-control"/>
-  <input placeholder="verify password"
-         type="password" style="margin-bottom: 5px;"
-         class="form-control"/>
-  <a class="btn btn-primary btn-block"
-     [routerLink]="['/user/:uid']">Register</a>
-  <a class="btn btn-danger btn-block"
-     [routerLink]="['/login']" >Cancel</a>
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
 
+  <form (ngSubmit)="createUser()" #f="ngForm">
+    <div class="form-group">
+  <input name="userName"
+         id="username"
+         ngModel=""
+         required=""
+         placeholder="username"
+         type="text"
+         class="form-control"
+         #userName="ngModel" style="margin-bottom: 5px;"/>
+      <span class="help-block"
+            *ngIf="!userName.valid && userName.touched">
+            Please enter a valid username!
+      </span>
+    </div>
+
+    <div class="form-group">
+  <input name="password"
+         id="password"
+         ngModel=""
+         required=""
+         placeholder="password"
+         type="password"
+         class="form-control"
+         #password="ngModel" style="margin-bottom: 5px;"/>
+      <span class="help-block"
+            *ngIf="!password.valid && password.touched">
+            Please enter a valid Password!
+      </span>
+    </div>
+
+    <div class="form-group">
+  <input name="verifyPassword"
+         id="verifyPassword"
+         ngModel=""
+         required
+         #verifyPassword="ngModel" placeholder="verify password"
+         type="password" style="margin-bottom: 5px;"
+         class="form-control"/>
+      <span class="help-block"
+            *ngIf="!verifyPassword.valid && verifyPassword.touched">
+            Please re-enter the password!
+      </span>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block"
+              [disabled]="!f.valid">
+        Register
+      </button>
+    </div>
+
+    <div class="form-group">
+      <a class="btn btn-danger btn-block"
+         [routerLink]="['/login']">
+        Cancel
+      </a>
+    </div>
+  </form>
 </div>

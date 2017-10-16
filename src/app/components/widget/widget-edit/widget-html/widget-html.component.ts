@@ -3,14 +3,13 @@ import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-widget-header',
-  templateUrl: './widget-header.component.html',
-  styleUrls: ['./widget-header.component.css']
+  selector: 'app-widget-html',
+  templateUrl: './widget-html.component.html',
+  styleUrls: ['./widget-html.component.css']
 })
-export class WidgetHeaderComponent implements OnInit {
+export class WidgetHtmlComponent implements OnInit {
 
-  textHeader: String;
-  sizeHeader: String;
+  textHtml: String;
   userId: String;
   websiteId: String;
   pageId: String;
@@ -27,29 +26,25 @@ export class WidgetHeaderComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
-      this.textHeader = 'Home Page';
-      this.sizeHeader = '2';
+      this.textHtml = '<p> Home Page</p>';
       this.widgetId = params['wgid'];
       if (this.widgetId) {
         this.widget = this.widgetService.findWidgetById(this.widgetId);
         this.widgetEdit = true;
-        this.textHeader = this.widget['text'];
-        this.sizeHeader = this.widget['size'];
+        this.textHtml = this.widget['text'];
       }
     });
   }
 
   createWidget() {
-    this.widget['widgetType'] = 'HEADING';
-    this.widget['text'] = this.textHeader;
-    this.widget['size'] = this.sizeHeader;
+    this.widget['widgetType'] = 'HTML';
+    this.widget['text'] = this.textHtml;
     this.widgetService.createWidget(this.pageId, this.widget);
   }
 
   updateWidget() {
-    this.widget['widgetType'] = 'HEADING';
-    this.widget['text'] = this.textHeader;
-    this.widget['size'] = this.sizeHeader;
+    this.widget['widgetType'] = 'HTML';
+    this.widget['text'] = this.textHtml;
     this.widgetService.updateWidget(this.widgetId, this.widget);
   }
 

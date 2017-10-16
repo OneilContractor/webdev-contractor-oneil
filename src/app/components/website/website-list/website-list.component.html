@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <p class="navbar-text pull-left">
-      <a [routerLink]="['/user/:uid']" class="navbar-link">
+      <a [routerLink]="['/user', userId]" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left" ></span>
       </a>
     </p>
@@ -16,7 +16,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user/:uid/website/new']" class="navbar-link">
+      <a [routerLink]="['/user', userId, 'website','new']" class="navbar-link">
         <span class="glyphicon glyphicon-plus" ></span>
       </a>
     </p>
@@ -27,59 +27,24 @@
 <br/>
 
 <div class="container-fluid scroller">
-  <div class="row">
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">
-        <b class="indexLinks">Address Book App</b>
-      </a>
+  <ul class="list-group">
+    <div *ngFor="let website of websites">
+      <li class="list-group-item">
+        <a [routerLink]="['/user', userId, 'website', website['_id'],'page']">
+          {{website['name']}}
+        </a>
+        <a [routerLink]="['/user', userId, 'website', website['_id']]"
+           class="pull-right">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+      </li>
     </div>
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid']" class="navbar-link pull-right">
-        <span class="glyphicon glyphicon-cog"  ></span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">
-        <b class="indexLinks">Blogger</b>
-      </a>
-    </div>
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid']" class="navbar-link pull-right">
-        <span class="glyphicon glyphicon-cog"  ></span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">
-        <b class="indexLinks">Bloggin App</b>
-      </a>
-    </div>
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid']" class="navbar-link pull-right">
-        <span class="glyphicon glyphicon-cog"  ></span>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">
-        <b class="indexLinks">Script Testing App</b>
-      </a>
-    </div>
-    <div class="col-xs-6">
-      <a [routerLink]="['/user/:uid/website/:wid']" class="navbar-link pull-right">
-        <span class="glyphicon glyphicon-cog"  ></span>
-      </a>
-    </div>
-  </div>
+  </ul>
 
   <nav class="navbar navbar-default navbar-fixed-bottom blue">
     <div class="container-fluid">
       <p class="navbar-text pull-right">
-        <a [routerLink]="['/user/:uid']">
+        <a [routerLink]="['/user', userId]">
           <span class="glyphicon glyphicon-user"></span>
         </a>
       </p>
