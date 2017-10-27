@@ -9,14 +9,15 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class WidgetHeaderComponent implements OnInit {
 
-  textHeader: String;
-  sizeHeader: String;
-  userId: String;
-  websiteId: String;
-  pageId: String;
-  widgetId: String;
-  widgetEdit: Boolean;
+  textHeader: string;
+  sizeHeader: string;
+  userId: string;
+  websiteId: string;
+  pageId: string;
+  wgid: string;
   widget = {};
+  widgetEdit: Boolean;
+  widgets = [{}];
 
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute) {
@@ -27,15 +28,18 @@ export class WidgetHeaderComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
+      this.wgid = params['wgid'];
       this.textHeader = 'Home Page';
       this.sizeHeader = '2';
-      this.widgetId = params['wgid'];
-      if (this.widgetId) {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
-        this.widgetEdit = true;
-        this.textHeader = this.widget['text'];
-        this.sizeHeader = this.widget['size'];
-      }
+      this.widgetService.findWidgetById(this.wgid)
+        .subscribe(
+          (widget: any) => {
+            this.widget = widget;
+            this.widgetEdit = true;
+            this.textHeader = widget['text'];
+            this.sizeHeader = widget['size'];
+          }
+        );
     });
   }
 
@@ -43,18 +47,33 @@ export class WidgetHeaderComponent implements OnInit {
     this.widget['widgetType'] = 'HEADING';
     this.widget['text'] = this.textHeader;
     this.widget['size'] = this.sizeHeader;
-    this.widgetService.createWidget(this.pageId, this.widget);
+    this.widgetService.createWidget(this.pageId, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
   updateWidget() {
     this.widget['widgetType'] = 'HEADING';
     this.widget['text'] = this.textHeader;
     this.widget['size'] = this.sizeHeader;
-    this.widgetService.updateWidget(this.widgetId, this.widget);
+    this.widgetService.updateWidget(this.wgid, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wgid)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
 }

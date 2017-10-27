@@ -24,7 +24,7 @@
         </a>
       </div>
       <div class="navbar-text pull-right websites">
-        <a [routerLink]="['/user', userId, 'website']" (click)="createWebsite()">
+        <a (click)="createWebsite()">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </div>
@@ -42,10 +42,10 @@
     <ul class="list-group">
       <div *ngFor="let website of websites">
         <li class="list-group-item">
-          <a [routerLink]="['/user', userId, 'website', website['_id'],'page']">
-            {{website['name']}}
+          <a [routerLink]="['/user', userId, 'website', website._id,'page']">
+            {{website.name}}
           </a>
-          <a [routerLink]="['/user', userId, 'website', website['_id']]"
+          <a [routerLink]="['/user', userId, 'website', website._id]"
              class="pull-right">
             <span class="glyphicon glyphicon-cog"></span>
           </a>
@@ -58,8 +58,9 @@
     <form #f="ngForm">
       <div class="form-group form-padding">
         <label for="websiteName">Name</label>
-        <input ngModel=""
+        <input ngModel
                name="websiteName"
+               #websiteName = "ngModel"
                required
                type="text"
                class="form-control mr-5"
@@ -69,8 +70,9 @@
 
       <div class="form-group">
         <label for="websiteDescription">Description</label>
-        <textarea ngModel=""
+        <textarea ngModel
                   name="websiteDescription"
+                  #websiteDescription = "ngModel"
                   required
                   class="form-control mr-5"
                   id="websiteDescription"

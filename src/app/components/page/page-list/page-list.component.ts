@@ -9,8 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class PageListComponent implements OnInit {
 
-  userId: String;
-  websiteId: String;
+  userId: string;
+  websiteId: string;
   pages = [{}];
 
   constructor(private pageService: PageService,
@@ -20,7 +20,10 @@ export class PageListComponent implements OnInit {
     this.activatedRoutes.params.subscribe(params => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
-      this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
+      this.pageService.findPagesByWebsiteId(this.websiteId)
+        .subscribe((pages) => {
+          this.pages = pages;
+        });
     });
   }
 

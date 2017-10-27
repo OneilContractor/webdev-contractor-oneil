@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute} from '@angular/router';
 
@@ -9,16 +9,17 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class WidgetYoutubeComponent implements OnInit {
 
-  nameYoutube: String;
-  textYoutube: String;
-  urlYoutube: String;
-  widthYoutube: String;
-  userId: String;
-  websiteId: String;
-  pageId: String;
-  widgetId: String;
-  widgetEdit: Boolean;
+  nameYoutube: string;
+  textYoutube: string;
+  urlYoutube: string;
+  widthYoutube: string;
+  userId: string;
+  websiteId: string;
+  pageId: string;
+  wgid: string;
   widget = {};
+  widgets = [{}];
+  widgetEdit: Boolean;
 
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute) {
@@ -29,15 +30,18 @@ export class WidgetYoutubeComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
-      this.widgetId = params['wgid'];
-      if (this.widgetId) {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
-        this.widgetEdit = true;
-        this.nameYoutube = this.widget['name'];
-        this.textYoutube = this.widget['text'];
-        this.urlYoutube = this.widget['url'];
-        this.widthYoutube = this.widget['width'];
-      }
+      this.wgid = params['wgid'];
+      this.widgetService.findWidgetById(this.wgid)
+        .subscribe(
+          (widget: any) => {
+            this.widget = widget;
+            this.widgetEdit = true;
+            this.nameYoutube = widget['name'];
+            this.textYoutube = widget['text'];
+            this.widthYoutube = widget['width'];
+            this.urlYoutube = widget['url'];
+          }
+        );
     });
   }
 
@@ -47,20 +51,35 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widget['text'] = this.textYoutube;
     this.widget['url'] = this.urlYoutube;
     this.widget['width'] = this.widthYoutube;
-    this.widgetService.createWidget(this.pageId, this.widget);
+    this.widgetService.createWidget(this.pageId, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
+
 
   updateWidget() {
     this.widget['widgetType'] = 'YOUTUBE';
+    this.widget['width'] = this.widthYoutube;
+    this.widget['url'] = this.urlYoutube;
     this.widget['name'] = this.nameYoutube;
     this.widget['text'] = this.textYoutube;
-    this.widget['url'] = this.urlYoutube;
-    this.widget['width'] = this.widthYoutube;
-    this.widgetService.updateWidget(this.widgetId, this.widget);
+    this.widgetService.updateWidget(this.wgid, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wgid)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
-
 }

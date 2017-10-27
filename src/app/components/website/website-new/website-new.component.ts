@@ -1,7 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {WebsiteService} from '../../../services/website.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../services/user.service.client';
 import {NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-website-new',
@@ -9,31 +11,47 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./website-new.component.css']
 })
 export class WebsiteNewComponent implements OnInit {
-
-  @ViewChild('f') newWebsiteForm: NgForm;
-
-  userId: String;
-  websiteId: String;
+  @ViewChild('f') websiteForm: NgForm;
+  userId: string;
   websites = [{}];
-  website = {};
-  websiteName: String;
-  websiteDescription: String;
+  name: string;
+  description: string;
+  website: any;
 
-  constructor(private websiteService: WebsiteService,
-              private activatedRoutes: ActivatedRoute) {
-  }
+  constructor(private webService: WebsiteService,
+              private activatedRoute: ActivatedRoute,
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.websites = this.websiteService.findWebsitesByUser(this.userId);
-    });
+    this.activatedRoute.params
+      .subscribe(
+        (params: any) => {
+          this.userId = params['uid'];
+        }
+      );
+    this.webService.findWebsitesByUser(this.userId)
+      .subscribe(
+        (websites: any) => {
+          this.websites = websites;
+        }
+      );
+
   }
 
   createWebsite() {
-    this.website['name'] = this.newWebsiteForm.value.websiteName;
-    this.website['description'] = this.newWebsiteForm.value.websiteDescription;
-    this.website = this.websiteService.createWebsite(this.userId, this.website);
+    this.name = this.websiteForm.value.websiteName;
+    this.description = this.websiteForm.value.websiteDescription;
+    const website = {
+      name: this.name,
+      description: this.description
+    }
+    this.website = this.webService.createWebsite(this.userId, website)
+      .subscribe(
+        (new_website: any) => {
+           this.router.navigate(['user/' + this.userId, 'website']);
+        }
+      );
   }
+
 }

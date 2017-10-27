@@ -9,13 +9,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class WidgetHtmlComponent implements OnInit {
 
-  textHtml: String;
-  userId: String;
-  websiteId: String;
-  pageId: String;
-  widgetId: String;
+  textHtml: string;
+  userId: string;
+  websiteId: string;
+  pageId: string;
+  wgid: string;
   widgetEdit: Boolean;
   widget = {};
+  widgets = [{}];
 
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute) {
@@ -26,30 +27,46 @@ export class WidgetHtmlComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
-      this.textHtml = '<p> Home Page</p>';
-      this.widgetId = params['wgid'];
-      if (this.widgetId) {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
-        this.widgetEdit = true;
-        this.textHtml = this.widget['text'];
-      }
+      this.wgid = params['wgid'];
+      this.widgetService.findWidgetById(this.wgid)
+        .subscribe(
+          (widget: any) => {
+            this.widget = widget;
+            this.widgetEdit = true;
+            this.textHtml = widget['text'];
+          }
+        );
     });
   }
 
   createWidget() {
     this.widget['widgetType'] = 'HTML';
     this.widget['text'] = this.textHtml;
-    this.widgetService.createWidget(this.pageId, this.widget);
+    this.widgetService.createWidget(this.pageId, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
   updateWidget() {
     this.widget['widgetType'] = 'HTML';
     this.widget['text'] = this.textHtml;
-    this.widgetService.updateWidget(this.widgetId, this.widget);
+    this.widgetService.updateWidget(this.wgid, this.widget)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wgid)
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+        }
+      );
   }
-
 }

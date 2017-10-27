@@ -1,54 +1,76 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, RequestOptions, Response } from '@angular/http';
 import 'rxjs/Rx';
+import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 // injecting service into module
 @Injectable()
 
 export class PageService {
 
-  constructor() {
+  constructor(private http: Http) {}
+
+  baseUrl = environment.baseUrl;
+
+  api = {
+    'createPage'   : this.createPage,
+    'findPageById' : this.findPageById,
+    'findPageByWebsiteId' : this.findPagesByWebsiteId,
+    'updatePage' : this.updatePage,
+    'deletePage' : this.deletePage
+  };
+
+  createPage(websiteId: string, page: any) {
+    page._id = Math.floor(Math.random() * 10000).toString();
+    page.websiteId = websiteId;
+    return this.http.post(this.baseUrl + '/api/website/' + websiteId + '/page', page)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
-  pages = [
-    {'_id': '321', 'name': 'Post 1', 'websiteId': '456', 'description': 'Lorem'},
-    {'_id': '432', 'name': 'Post 2', 'websiteId': '456', 'description': 'Lorem'},
-    {'_id': '543', 'name': 'Post 3', 'websiteId': '456', 'description': 'Lorem'}
-  ];
-
-  createPage(webiteId, page) {
-    page['_id'] = Math.floor(Math.random() * 1000) + '';
-    page['websiteId'] = webiteId;
-    this.pages.push(page);
-    return page;
+  findPageById(pageId: string) {
+    return this.http.get(this.baseUrl + '/api/page/' + pageId)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
-  findPagesByWebsiteId(websiteId) {
-    return this.pages.filter(function (page) {
-      return page['websiteId'] === websiteId;
-    });
+  findPagesByWebsiteId(websiteId: string) {
+    return this.http.get(this.baseUrl + '/api/website/' + websiteId + '/page')
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
-  findPageById(pageId) {
-    return this.pages.find(function (page) {
-      return page['_id'] === pageId;
-    });
+  updatePage(pageId: string, page: any) {
+    return this.http.put(this.baseUrl + '/api/page/' + pageId, page)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
-  updatePage(pageId, page) {
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]['_id'] === pageId) {
-        this.pages[x]['name'] = page.name;
-        this.pages[x]['description'] = page.description;
-        return this.pages[x];
-      }
-    }
+  deletePage(pageId: string) {
+    return this.http.delete(this.baseUrl + '/api/page/' + pageId)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
-  deletePage(pageId) {
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]['_id'] === pageId) {
-        delete this.pages[x];
-      }
-    }
-  }
 }

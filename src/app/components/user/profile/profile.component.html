@@ -18,39 +18,39 @@
   </div>
 </nav>
 
-<div *ngIf="errorFlag"
-     class="alert alert-danger">
-  {{errorMsg}}
-</div>
+<!--<div *ngIf="errorFlag"-->
+     <!--class="alert alert-danger">-->
+  <!--{{errorMsg}}-->
+<!--</div>-->
 
 <div class="container-fluid scroller">
   <form #f="ngForm">
     <div class="form-group" >
       <label for="username">Username</label>
       <input name="username"
-             ngModel=""
-             type="text" class="form-control" id="username" placeholder={{user.username}}>
+             [(ngModel)]="username"
+             type="text" class="form-control" id="username">
     </div>
   </form>
 
   <form #f="ngForm">
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" name="password" ngModel="" class="form-control" id="password" placeholder={{user.password}}>
+      <input type="password" name="password" [(ngModel)]="password" class="form-control" id="password">
     </div>
   </form>
 
   <form #f="ngForm">
     <div class="form-group">
-      <label for="first-name">First Name</label>
-      <input name="firstName" ngModel="" type="text" class="form-control" id="first-name" placeholder={{user.firstName}}>
+      <label for="firstName">First Name</label>
+      <input name="firstName" [(ngModel)]="firstName" type="text" class="form-control" id="firstName">
     </div>
   </form>
 
   <form #f="ngForm">
     <div class="form-group">
-      <label for="last-name">Last Name</label>
-      <input name="lastName" ngModel="" type="text" class="form-control" id="last-name" placeholder={{user.lastName}}>
+      <label for="lastName">Last Name</label>
+      <input name="lastName" [(ngModel)]="lastName" type="text" class="form-control" id="lastName">
     </div>
   </form>
   <div class="form-group">

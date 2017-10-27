@@ -9,11 +9,11 @@ import {WidgetService} from '../../../services/widget.service.client';
 })
 export class WidgetEditComponent implements OnInit {
 
-  userId: String;
-  websiteId: String;
-  pageId: String;
-  widgetId: String;
-  widget: {};
+  userId: string;
+  websiteId: string;
+  pageId: string;
+  widgetId: string;
+  widget = {};
 
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute) {
@@ -25,7 +25,12 @@ export class WidgetEditComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
-      this.widget = this.widgetService.findWidgetById(this.widgetId);
+      this.widgetService.findWidgetById(this.widgetId)
+        .subscribe(
+          (widget: any) => {
+            this.widget = widget;
+          }
+        );
     });
   }
 }
