@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -22,7 +22,8 @@ export class WidgetYoutubeComponent implements OnInit {
   widgetEdit: Boolean;
 
   constructor(private widgetService: WidgetService,
-              private activatedRoutes: ActivatedRoute) {
+              private activatedRoutes: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -31,17 +32,17 @@ export class WidgetYoutubeComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.wgid = params['wgid'];
-      this.widgetService.findWidgetById(this.wgid)
-        .subscribe(
-          (widget: any) => {
+      if (this.wgid) {
+        this.widgetService.findWidgetById(this.wgid)
+          .subscribe((widget) => {
             this.widget = widget;
             this.widgetEdit = true;
-            this.nameYoutube = widget['name'];
-            this.textYoutube = widget['text'];
-            this.widthYoutube = widget['width'];
-            this.urlYoutube = widget['url'];
-          }
-        );
+            this.nameYoutube = this.widget['name'];
+            this.textYoutube = this.widget['text'];
+            this.urlYoutube = this.widget['url'];
+            this.widthYoutube = this.widget['width'];
+          });
+      }
     });
   }
 
@@ -52,11 +53,12 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widget['url'] = this.urlYoutube;
     this.widget['width'] = this.widthYoutube;
     this.widgetService.createWidget(this.pageId, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data) {
+          this.widget = data;
+          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', 'new']);
         }
-      );
+      });
   }
 
 
@@ -67,19 +69,20 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widget['name'] = this.nameYoutube;
     this.widget['text'] = this.textYoutube;
     this.widgetService.updateWidget(this.wgid, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data) {
+          this.widget = data;
+          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
         }
-      );
+      });
   }
 
   deleteWidget() {
     this.widgetService.deleteWidget(this.wgid)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data === 200) {
+          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
         }
-      );
+      });
   }
 }

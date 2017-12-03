@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -24,7 +24,8 @@ export class WidgetImageComponent implements OnInit {
   uploadImage: String;
 
   constructor(private widgetService: WidgetService,
-              private activatedRoutes: ActivatedRoute) {
+              private activatedRoutes: ActivatedRoute,
+              private router: Router) {
   }
 
   baseUrl = environment.baseUrl;
@@ -35,18 +36,18 @@ export class WidgetImageComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
-      this.widget = this.widgetService.findWidgetById(this.widgetId)
-        .subscribe(
-          (widget: any) => {
+      if (this.widgetId) {
+        this.widgetService.findWidgetById(this.widgetId)
+          .subscribe((widget) => {
             this.widget = widget;
             this.widgetEdit = true;
-            this.nameImage = widget['name'];
-            this.textImage = widget['text'];
-            this.widthImage = widget['width'];
-            this.urlImage = widget['url'];
+            this.nameImage = this.widget['name'];
+            this.textImage = this.widget['text'];
+            this.urlImage = this.widget['url'];
+            this.widthImage = this.widget['width'];
             this.uploadImage = this.widget['upload'];
-          }
-        );
+          });
+      }
     });
   }
 
@@ -58,11 +59,13 @@ export class WidgetImageComponent implements OnInit {
     this.widget['upload'] = this.uploadImage;
     this.widget['name'] = this.nameImage;
     this.widgetService.createWidget(this.pageId, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data) {
+          this.widget = data;
+          this.router.navigate(['/user', this.userId, 'website',
+            this.websiteId, 'page', this.pageId, 'widget']);
         }
-      );
+      });
   }
 
   updateWidget() {
@@ -73,20 +76,23 @@ export class WidgetImageComponent implements OnInit {
     this.widget['upload'] = this.uploadImage;
     this.widget['name'] = this.nameImage;
     this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data) {
+          this.widget = data;
+          this.router.navigate(['/user', this.userId, 'website',
+            this.websiteId, 'page', this.pageId, 'widget']);
         }
-      );
+      });
   }
 
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
+      .subscribe((data) => {
+        if (data === 200) {
+          this.router.navigate(['/user', this.userId, 'website',
+            this.websiteId, 'page', this.pageId, 'widget']);
         }
-      );
+      });
   }
 
 }

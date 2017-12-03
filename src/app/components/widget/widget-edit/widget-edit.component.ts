@@ -13,6 +13,7 @@ export class WidgetEditComponent implements OnInit {
   websiteId: string;
   pageId: string;
   widgetId: string;
+  type: string;
   widget = {};
 
   constructor(private widgetService: WidgetService,
@@ -26,11 +27,10 @@ export class WidgetEditComponent implements OnInit {
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
       this.widgetService.findWidgetById(this.widgetId)
-        .subscribe(
-          (widget: any) => {
-            this.widget = widget;
-          }
-        );
+        .subscribe((widget) => {
+          this.widget = widget;
+          this.type = widget['type'];
+        });
     });
   }
 }

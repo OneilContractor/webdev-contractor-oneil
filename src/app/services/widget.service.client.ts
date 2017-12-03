@@ -73,4 +73,16 @@ export class WidgetService {
       );
   }
 
+  updateWidgetPosition(pageId, initial, final) {
+    const url = this.baseUrl + '/api/page/' + pageId + '/widget?initial='
+      + initial + '&final=' + final;
+    return this.http.put(url, null)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
 }

@@ -28,7 +28,9 @@ import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
-import {SortableDirective} from '../../assignment/directives/sortable.directive';
+import {SortableDirective} from './directives/sortable.directive';
+import { QuillEditorModule } from 'ngx-quill-editor';
+import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
 
 
 
@@ -54,13 +56,15 @@ import {SortableDirective} from '../../assignment/directives/sortable.directive'
     WidgetImageComponent,
     WidgetYoutubeComponent,
     WidgetHtmlComponent,
-    SortableDirective
+    SortableDirective,
+    WidgetTextComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    Routing
+    Routing,
+    QuillEditorModule
   ],
   // Client Side services here
   providers: [UserService, WebsiteService, PageService, WidgetService],
