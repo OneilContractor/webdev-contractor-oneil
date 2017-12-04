@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,42 +9,41 @@ import {UserService} from '../../../services/user.service.client';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @ViewChild('f') registerForm: NgForm;
-  username: string;
-  password: string;
-  verifyPassword: string;
-  lastName: string;
-  firstName: string;
-  email: string;
-  errorFlag: boolean;
-  errorMsg = '';
+  @ViewChild('f') registrationForm: NgForm;
+  user = {};
+  verifyPassword: String;
+  errorFlag: Boolean;
+  errorMsg: String;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private userService: UserService,
+              private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  register() {
-    this.username = this.registerForm.value.username;
-    this.password = this.registerForm.value.password;
-    this.verifyPassword = this.registerForm.value.verifyPassword;
-    const user  = {
-      username: this.username,
-      password: this.password,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email
-    };
-    this.userService.createUser(user)
-      .subscribe(
-        (user: any) => {
-          this.errorFlag = false;
-          this.router.navigate(['user/' + user._id]);
-          },
-        (error: any) => {
-          this.errorFlag = true;
-          this.errorMsg = 'Failed to create User!';
-        }
-      );
+  createUser() {
+    this.user['userName'] = this.registrationForm.value.userName;
+    this.user['password'] = this.registrationForm.value.password;
+    this.user['firstName'] = this.registrationForm.value.firstName;
+    this.user['lastName'] = this.registrationForm.value.lastName;
+    this.user['email'] = this.registrationForm.value.email;
+    this.verifyPassword = this.registrationForm.value.verifyPassword;
+
+    if (this.user['password'] !== this.verifyPassword) {
+      this.errorFlag = true;
+      this.errorMsg = 'Passwords are not matching!';
+    } else {
+      this.userService.createUser(this.user)
+        .subscribe((user: any) => {
+          this.user = user;
+          if (this.user) {
+            this.router.navigate([`/user/${this.user['_id']}`]);
+          } else {
+            this.errorFlag = true;
+            this.errorMsg = 'Failed to create User!';
+          }
+        });
+    }
   }
 }
