@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PageService} from '../../../services/page.service.client';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -17,12 +17,11 @@ export class PageNewComponent implements OnInit {
   pageId: string;
   pages = [{}];
   pageName: string;
-  pageDescription: string;
+  pageDesc: string;
   page = {};
 
   constructor(private pageService: PageService,
-              private activatedRoutes: ActivatedRoute,
-              private router: Router) {
+              private activatedRoutes: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -39,11 +38,10 @@ export class PageNewComponent implements OnInit {
 
   createPage() {
     this.page['name'] = this.newPageForm.value.pageName;
-    this.page['description'] = this.newPageForm.value.pageDescription;
+    this.page['description'] = this.newPageForm.value.pageDesc;
     this.pageService.createPage(this.websiteId, this.page)
       .subscribe((page) => {
         this.page = page;
-        this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page']);
       });
   }
 }
