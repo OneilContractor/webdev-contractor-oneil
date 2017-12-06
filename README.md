@@ -1,4 +1,4 @@
-</ About Me />
+# About Me
 
 I am currently a CS graduate in Northeastern University.
 I have a work experiece of one and a half year as a software developer and have been part of project developments in Microsoft .Net Framework alongwith many WebDev Technologies like HTML,CSS,JavaScript,JQuery.
