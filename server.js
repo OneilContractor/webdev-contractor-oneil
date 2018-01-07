@@ -1,9 +1,3 @@
-/**
- * Created by sesha on 6/2/17.
- */
-
-// Get the dependencies
-
 const express = require('express');
 const path = require('path');
 const http = require('http');
@@ -27,12 +21,11 @@ app.use(function(req, res, next) {
 const port = process.env.PORT || '3100';
 app.set('port', port);
 
-
 // Create HTTP server
 const server = http.createServer(app);
 
-var serverSide = require("./server/test-mongodb/app");
-serverSide(app);
+// var serverSide = require("./server/test-mongodb/app");
+// serverSide(app);
 
 require("./assignment/app.js")(app);
 
@@ -43,5 +36,3 @@ app.get('*', function (req, res) {
 
 
 server.listen( port , () => console.log('Running'));
-
-

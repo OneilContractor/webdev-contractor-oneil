@@ -1,62 +1,63 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../services/user.service.client';
 import {PageService} from '../../../services/page.service.client';
-import {ActivatedRoute} from '@angular/router';
-
 @Component({
   selector: 'app-page-edit',
   templateUrl: './page-edit.component.html',
   styleUrls: ['./page-edit.component.css']
 })
 export class PageEditComponent implements OnInit {
+  @ViewChild('f') pageEditForm: NgForm;
 
   userId: string;
   websiteId: string;
   pageId: string;
-  pages = [{}];
-  page = {};
-  pageName: string;
-  pageDescription: string;
-
-  constructor(private pageService: PageService,
-              private activatedRoutes: ActivatedRoute) {
-  }
-
+  websitePages = [{}];
+  currPage = {};
+  constructor(private router: Router, private pageService: PageService,
+              private userService: UserService, private activatedRoute: ActivatedRoute) { }
   ngOnInit() {
-    this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.pageId = params['pid'];
-      this.pageService.findPagesByWebsiteId(this.websiteId)
-        .subscribe((data) => {
-          if (data) {
-            this.pages = data;
-          }
-        });
-      this.pageService.findPageById(this.pageId)
-        .subscribe((data) => {
-          if (data) {
-            this.page = data;
-            this.pageName = this.page['name'];
-            this.pageDescription = this.page['description'];
-          }
-        });
-    });
+    this.activatedRoute.params
+      .subscribe(
+        (params: any) => {
+          this.userId = params['uid'];
+          this.websiteId = params['wid'];
+          this.pageId = params['pid'];
+        }
+      );
+    this.pageService.findPageById(this.pageId)
+      .subscribe(
+        (page: any) => {
+          this.currPage = page;
+        }
+      );
+    this.pageService.findPageByWebsiteId(this.websiteId)
+      .subscribe(
+        (pages: any) => {
+          this.websitePages = pages;
+        }
+      );
   }
 
   editPage() {
-    this.page['name'] = this.pageName;
-    this.page['description'] = this.pageDescription;
-    this.pageService.updatePage(this.pageId, this.page)
-      .subscribe((page) => {
-        this.page = page;
-      });
+    const editedPage = {'_id': this.pageId, 'websiteId': this.websiteId,
+      'name' : this.pageEditForm.value.name,
+      'description' : this.pageEditForm.value.description};
+    this.pageService.updatePage( this.pageId, editedPage )
+      .subscribe(
+        (page: any) => {
+          this.router.navigate(['user/' + this.userId, 'website', this.websiteId, 'page']);
+        }
+      );
   }
-
   deletePage() {
     this.pageService.deletePage(this.pageId)
-      .subscribe((data) => {
-        if (data === 200) {
+      .subscribe(
+        (page: any) => {
+          this.router.navigate(['user/' + this.userId, 'website', this.websiteId, 'page']);
         }
-      });
+      );
   }
 }

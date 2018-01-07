@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
-
+import {NgForm} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,56 +11,47 @@ import {UserService} from '../../../services/user.service.client';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('f') profileForm: NgForm;
-  userId: string;
-  user = {};
-  username: string;
-  lastName: string;
-  firstName: string;
-  password: string;
-  errorFlag: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService) { }
+  userId: string;
+  user: any;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
           this.userId = params['uid'];
-        }
-      );
+        });
     this.userService.findUserById(this.userId)
-      .subscribe(
-        (user: any) => {
-          this.errorFlag = false;
-          this.username = user['username'];
-          this.lastName = user['lastName'];
-          this.firstName = user['firstName'];
-          this.password = user['password'];
-        },
-        (error: any) => {
-          this.errorFlag = true;
-        }
-      );
-
+      .subscribe((user: any) => {
+      console.log(user.username);
+        this.user = user;
+        this.username = this.user.username;
+        this.firstName = this.user.firstName;
+        this.lastName = this.user.lastName;
+        this.email = this.user.email;
+        this.password = this.user.password;
+      });
   }
-
   editProfile() {
-    this.user['username'] = this.profileForm.value.username;
-    this.user['password'] = this.profileForm.value.password;
-    this.user['firstName'] = this.profileForm.value.firstName;
-    this.user['lastName'] = this.profileForm.value.lastName;
-    this.userService.updateUser(this.userId, this.user)
-      .subscribe(
-        (user: any) => {
-          this.errorFlag = false;
-          this.username = user['username'];
-          this.lastName = user['lastName'];
-          this.firstName = user['firstName'];
-          this.password = user['password'];
-        },
-        (error: any) => {
-          this.errorFlag = true;
-        }
-      );
+    this.user.username = this.profileForm.value.username;
+    this.user.password = this.profileForm.value.password;
+    this.user.email = this.profileForm.value.email;
+    this.user.firstname = this.profileForm.value.firstName;
+    this.user.lastName = this.profileForm.value.lastName;
+    this.userService.updateUser(this.userId, this.user )
+      .subscribe((user: any) => {
+        this.user = user;
+        this.username = this.user.username;
+        this.firstName = this.user.firstName;
+        this.lastName = this.user.lastName;
+        this.email = this.user.email;
+        this.password = this.user.password;
+      });
   }
 }

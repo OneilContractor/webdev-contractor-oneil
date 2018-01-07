@@ -1,71 +1,71 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, RequestOptions, Response } from '@angular/http';
 import 'rxjs/Rx';
-import {Http, Response} from '@angular/http';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 // injecting service into module
 @Injectable()
 
 export class WebsiteService {
 
-  constructor(private http: Http) {
-  }
+  constructor(private  http: Http) { }
 
-  baseUrl = environment.baseUrl;
+  websites  = [
+    { '_id': '123', 'name': 'Facebook',    'developerId': '456', 'description': 'Lorem' },
+    { '_id': '123', 'name': 'Tweeter',     'developerId': '456', 'description': 'Lorem' },
+    { '_id': '123', 'name': 'Gizmodo',     'developerId': '456', 'description': 'Lorem' },
+    { '_id': '890', 'name': 'Go',          'developerId': '123', 'description': 'Lorem' },
+    { '_id': '567', 'name': 'Tic Tac Toe', 'developerId': '123', 'description': 'Lorem' },
+    { '_id': '678', 'name': 'Checkers',    'developerId': '123', 'description': 'Lorem' },
+    { '_id': '789', 'name': 'Chess',       'developerId': '234', 'description': 'Lorem' }
+  ];
 
-  createWebsite(userId, website) {
-    const url = this.baseUrl + '/api/user/' + userId + '/website';
-    return this.http.post(url, website)
+  api = {
+    'createWebsite'   : this.createWebsite,
+    'findWebsitesByUser' : this.findWebsitesByUser,
+    'findWebsiteById' : this.findWebsiteById
+  };
+
+  createWebsite(userId: String, website: any) {
+    website.developerId = userId;
+    return this.http.post(environment.baseUrl + '/api/user/' + userId + '/website', website)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
 
-  findWebsitesByUser(userId) {
-    const url = this.baseUrl + '/api/user/' + userId + '/website';
+  findWebsitesByUser(userId: String) {
+    const url = environment.baseUrl + '/api/user/' + userId + '/website';
     return this.http.get(url)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+      .map((response: Response) => {
+        return response.json();
+      });
   }
 
-  findWebsiteById(websiteId) {
-    const url = this.baseUrl + '/api/website/' + websiteId;
+  findWebsiteById(websiteId: String) {
+    const url = environment.baseUrl + '/api/website/' + websiteId;
     return this.http.get(url)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+      .map((response: Response) => {
+        return response.json();
+      });
   }
 
   updateWebsite(websiteId, website) {
-    const url = this.baseUrl + '/api/website/' + websiteId;
+    const url = environment.baseUrl + '/api/website/' + websiteId;
     return this.http.put(url, website)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+      .map((response: Response) => {
+        return response.json();
+      });
   }
-
   deleteWebsite(websiteId) {
-    const url = this.baseUrl + '/api/website/' + websiteId;
-    return this.http.delete(url)
+    return this.http.delete(environment.baseUrl + '/api/website/' + websiteId)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
-
 }

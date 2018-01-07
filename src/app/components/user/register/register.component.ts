@@ -10,41 +10,30 @@ import {UserService} from '../../../services/user.service.client';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
-  username: string;
-  password: string;
-  verifyPassword: string;
-  lastName: string;
-  firstName: string;
-  email: string;
   errorFlag: boolean;
   errorMsg = '';
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) {
+  }
 
   ngOnInit() {
   }
 
   register() {
-    this.username = this.registerForm.value.username;
-    this.password = this.registerForm.value.password;
-    this.verifyPassword = this.registerForm.value.verifyPassword;
-    const user  = {
-      username: this.username,
-      password: this.password,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email
-    };
-    this.userService.createUser(user)
-      .subscribe(
-        (user: any) => {
-          this.errorFlag = false;
-          this.router.navigate(['user/' + user._id]);
+      const user = {
+        username: this.registerForm.value.username,
+        password: this.registerForm.value.password
+      };
+      alert(user.username);
+      this.userService.createUser(user)
+        .subscribe(
+          (user1: any) => {
+            this.errorFlag = false;
+            this.router.navigate(['user/' + user1._id]);
           },
-        (error: any) => {
-          this.errorFlag = true;
-          this.errorMsg = 'Failed to create User!';
-        }
-      );
-  }
+          (error: any) => {
+            this.errorFlag = true;
+          }
+        );
+    }
 }

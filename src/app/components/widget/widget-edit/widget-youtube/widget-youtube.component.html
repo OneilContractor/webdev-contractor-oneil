@@ -1,22 +1,17 @@
-<div *ngIf="widgetEdit;then edit else new"></div>
-<ng-template #edit>
-  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
+ <nav class="navbar navbar-default bg-primary navbar-fixed-top">
     <div class="container-fluid">
-      <!--tick mark-->
       <div class="navbar-brand pull-right right-margin-fix">
-        <a (click)="updateWidget()"
+        <a (click)="updateWidget()" [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
            class="navbar-link">
           <span class="glyphicon glyphicon-ok glyphicon-black"></span>
         </a>
       </div>
-      <!--tick mark-->
       <div class="navbar-brand pull-left left-margin-fix">
         <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
            class="navbar-link">
           <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
         </a>
       </div>
-      <!--heading on the nav bar-->
       <p class="navbar-header pull-left">
         <a class="navbar-brand titlePages">
           <b>Widget Edit</b>
@@ -24,97 +19,42 @@
       </p>
     </div>
   </nav>
-</ng-template>
-<ng-template #new>
-  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
-    <div class="container-fluid">
-      <!--tick mark-->
-      <div class="navbar-brand pull-right right-margin-fix">
-        <a (click)="createWidget()"
-           class="navbar-link">
-          <span class="glyphicon glyphicon-ok glyphicon-black"></span>
-        </a>
-      </div>
-      <!--tick mark-->
-      <div class="navbar-brand pull-left left-margin-fix">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']"
-           class="navbar-link">
-          <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
-        </a>
-      </div>
-      <!--heading on the nav bar-->
-      <p class="navbar-header pull-left">
-        <a class="navbar-brand titlePages">
-          <b>New Widget</b>
-        </a>
-      </p>
-    </div>
-  </nav>
-</ng-template>
 
 
-<div class="container-fluid scroller">
-  <form action="profile.html" method="post">
-    <div class="form-group">
-      <label for="nameYoutube">
-        Name
-      </label>
-      <input [(ngModel)]="nameYoutube"
-             name="nameYoutube"
-             required
-             type="text"
-             class="form-control"
-             id="nameYoutube"
-             placeholder="">
-    </div>
+ <div class="container-fluid scroller">
+   <form>
+     <div class="form-group">
+       <label for="url">URL</label>
+       <input type="url"
+              class="form-control"
+              id= "url"
+              placeholder="www.youtube.com"
+              name="url"
+              [(ngModel)]="url">
+     </div>
+   </form>
 
-    <div class="form-group">
-      <label for="textYoutube">
-        Text
-      </label>
-      <input [(ngModel)]="textYoutube"
-             name="textYoutube"
-             required
-             type="text"
-             class="form-control"
-             id="textYoutube"
-             placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="urlYoutube">
-        URL
-      </label>
-      <input [(ngModel)]="urlYoutube"
-             name="urlYoutube"
-             required
-             type="text"
-             class="form-control"
-             id="urlYoutube"
-             placeholder="https://www.youtube.com/watch?v=ue80QwXMRHg">
-    </div>
-
-    <div class="form-group">
-      <label for="widthYoutube">
-        Width
-      </label>
-      <input [(ngModel)]="widthYoutube"
-             name="widthYoutube"
-             required
-             type="text"
-             class="form-control"
-             id="widthYoutube"
-             placeholder="">
-    </div>
-
-    <div class="form-group">
-      <a (click)="deleteWidget()"
-         class="btn btn-danger btn-block">
-        Delete
-      </a>
-    </div>
-  </form>
-</div>
+   <form>
+     <div class="form-group">
+       <label for="width">Width</label>
+       <input [(ngModel)]="width"
+              name="width"
+              required
+              type="text"
+              required
+              class="form-control"
+              id="width"
+              placeholder="100%">
+     </div>
+   </form>
+   <div class="form-group">
+     <a (click)="deleteWidget()"
+        class="btn btn-danger btn-block "
+        [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']">
+       Delete
+     </a>
+   </div>
+ </div>
 
 <!-- Footer -->
 <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">

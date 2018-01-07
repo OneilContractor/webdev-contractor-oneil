@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-text',
@@ -9,60 +10,62 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class WidgetTextComponent implements OnInit {
 
+  constructor(private widgetService: WidgetService,
+              private activatedRoutes: ActivatedRoute,
+              private router: Router) { }
+
+  text: string;
+  rows: string;
+  placeholder: string;
+  widgets = [{}];
+  widget: any;
   userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
-  widgetEdit: Boolean;
-  widget = {'name': '', 'type': 'TEXT', 'text': '', 'rows': '', 'placeholder': '', 'formatted': ''};
-
-  constructor(private widgetService: WidgetService,
-              private activatedRoutes: ActivatedRoute,
-              private router: Router) {
-  }
-
+  formatted: string;
+  name: string;
   ngOnInit() {
     this.activatedRoutes.params.subscribe(params => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
-      if (this.widgetId) {
-        this.widgetService.findWidgetById(this.widgetId)
-          .subscribe((widget) => {
+      this.widget = this.widgetService.findWidgetById(this.widgetId)
+        .subscribe(
+          (widget: any) => {
             this.widget = widget;
-            this.widgetEdit = true;
-          });
-      }
+            this.rows = widget.rows;
+            this.text = widget.text;
+            this.placeholder = widget.placeholder;
+            this.formatted = widget.formatted;
+            this.name = widget.name;
+          }
+        );
     });
   }
 
-  createWidget() {
-    this.widgetService.createWidget(this.pageId, this.widget)
-      .subscribe((data) => {
-        if (data) {
-          this.widget = data;
-          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
-        }
-      });
-  }
-
   updateWidget() {
+    this.widget.widgetType = 'TEXT';
+    this.widget.rows = this.rows;
+    this.widget.text = this.text;
+    this.widget.name = this.name;
+    this.widget.formatted = this.formatted;
+    this.widget.placeholder = this.placeholder;
     this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe((data) => {
-        if (data) {
-          this.widget = data;
-          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
         }
-      });
+      );
   }
 
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId)
-      .subscribe((data) => {
-        if (data === 200) {
-          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
         }
-      });
+      );
   }
 }

@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {PageService} from '../../../services/page.service.client';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../services/user.service.client';
 import {NgForm} from '@angular/forms';
+import {PageService} from '../../../services/page.service.client';
 
 @Component({
   selector: 'app-page-new',
@@ -9,39 +10,42 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./page-new.component.css']
 })
 export class PageNewComponent implements OnInit {
+  @ViewChild('f') pageForm: NgForm;
 
-  @ViewChild('f') newPageForm: NgForm;
-
+  constructor(private activatedRoute: ActivatedRoute,
+              private userService: UserService,
+              private router: Router,
+              private pageService: PageService) { }
   userId: string;
   websiteId: string;
-  pageId: string;
-  pages = [{}];
-  pageName: string;
-  pageDesc: string;
+  webSitePages = [{}];
   page = {};
-
-  constructor(private pageService: PageService,
-              private activatedRoutes: ActivatedRoute) {
-  }
-
   ngOnInit() {
-    this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.pageId = params['pid'];
-      this.pageService.findPagesByWebsiteId(this.websiteId)
-        .subscribe((pages) => {
-          this.pages = pages;
-        });
-    });
+    this.activatedRoute.params
+      .subscribe(
+        (params: any) => {
+          this.userId = params['uid'];
+          this.websiteId = params['wid'];
+        }
+      );
+    this.pageService.findPageByWebsiteId(this.websiteId)
+      .subscribe(
+        (pages: any) => {
+          this.webSitePages = pages;
+        }
+      );
   }
 
   createPage() {
-    this.page['name'] = this.newPageForm.value.pageName;
-    this.page['description'] = this.newPageForm.value.pageDesc;
-    this.pageService.createPage(this.websiteId, this.page)
-      .subscribe((page) => {
-        this.page = page;
-      });
+    const newPage = {
+      'name' : this.pageForm.value.name,
+      'description' : this.pageForm.value.description
+    };
+    this.page = this.pageService.createPage(this.websiteId, newPage)
+      .subscribe(
+        (page: any) => {
+          this.router.navigate(['user/', this.userId, 'website', this.websiteId, 'page']);
+        }
+      );
   }
 }

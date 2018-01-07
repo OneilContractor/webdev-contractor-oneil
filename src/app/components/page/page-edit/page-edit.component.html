@@ -1,68 +1,66 @@
-<nav class="navbar navbar-default bg-primary navbar-fixed-top">
-  <div class="container-fluid">
-
-    <p class="navbar-text pull-left">
-      <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" class="navbar-link">
-        <span class="glyphicon glyphicon-chevron-left glyphicon-black" ></span>
-      </a>
-    </p>
-
-    <!--heading on the nav bar-->
-    <p class="navbar-header pull-left">
-      <a class="navbar-brand thick">
-        <b class="titlePages">Edit Page</b>
-      </a>
-    </p>
-
-    <!--tick mark-->
-    <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" (click)="editPage()" class="navbar-link">
-        <span class="glyphicon glyphicon-ok glyphicon-black" ></span>
-      </a>
-    </p>
-
-  </div>
-</nav>
-
-<br/>
-
-<div class="container-fluid scroller">
-  <form>
-    <div class="form-group">
-      <label for="pageName">Name</label>
-      <input [(ngModel)]="pageName"
-             name="pageName"
-             required
-             id="pageName"
-             type="text"
-             class="form-control mr-5"
-             placeholder="pageName">
-    </div>
-
-    <div class="form-group">
-      <label for="pageDescription">Title</label>
-      <input [(ngModel)]="pageDescription"
-             name="pageDescription"
-             required=""
-             class="form-control mr-5"
-             id="pageDescription"
-             type="text" placeholder="Title">
-    </div>
-
-
-  <div class="form-group">
-    <a class="btn btn-danger btn-block" [routerLink]="['/user', userId, 'website', websiteId, 'page']" (click)="deletePage()" >Delete</a>
-  </div>
-  </form>
-
-  <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
+<form (ngSubmit) = "editPage()" #f="ngForm">
+  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
     <div class="container-fluid">
-      <p class="navbar-text pull-right">
-        <a [routerLink]="['/user', userId]">
-          <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
+
+      <p class="navbar-text pull-left">
+        <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" class="navbar-link">
+          <span class="glyphicon glyphicon-chevron-left glyphicon-black" ></span>
         </a>
       </p>
+
+      <!--heading on the nav bar-->
+      <p class="navbar-header pull-left">
+        <a class="navbar-brand thick">
+          <b class="titlePages">Edit Page</b>
+        </a>
+      </p>
+
+      <!--tick mark-->
+      <p class="navbar-text pull-right">
+        <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" (click)="editPage()" class="navbar-link">
+          <span class="glyphicon glyphicon-ok glyphicon-black" ></span>
+        </a>
+      </p>
+
     </div>
   </nav>
 
-</div>
+  <br/>
+
+  <div class="container-fluid scroller">
+      <div class="form-group">
+        <label>Name</label>
+        <input class="form-control margin-top"
+               placeholder="Name"
+               type="text"
+               [(ngModel)]="currPage['name']"
+               id="name"
+               name="name"/>
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <textarea class="form-control margin-top"
+                  name="description"
+                  id="description"
+                  [(ngModel)]="currPage['description']"
+                  placeholder="Description"></textarea>
+      </div>
+
+
+    <div class="form-group">
+      <a class="btn btn-danger btn-block" [routerLink]="['/user', userId, 'website', websiteId, 'page']" (click)="deletePage()" >Delete</a>
+    </div>
+
+    <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
+      <div class="container-fluid">
+        <p class="navbar-text pull-right">
+          <a [routerLink]="['/user', userId]">
+            <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
+          </a>
+        </p>
+      </div>
+    </nav>
+
+  </div>
+</form>

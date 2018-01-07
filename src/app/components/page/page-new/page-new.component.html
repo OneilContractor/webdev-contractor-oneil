@@ -29,23 +29,26 @@
 <div class="container-fluid scroller">
   <form #f="ngForm">
     <div class="form-group">
-      <label for="pageName">Name</label>
-      <input ngModel=""
+      <label>Name</label>
+      <input type="text"
+             id="name"
+             ngModel
              required
-             id="pageName"
-             placeholder="Page Name"
-             name="pageName"
-             type="text"
-             class="form-control mr-5">
+             class="form-control"
+             placeholder="name"
+             name="name"
+             #name="ngModel"/>
     </div>
 
     <div class="form-group">
-      <label for="pageDescription">Title</label>
-      <input ngModel=""
-             name="pageDescription"
-             required=""
-             id="pageDescription"
-             type="text" class="form-control mr-5" placeholder="Page Title">
+      <label>Title</label>
+      <textarea class="form-control"
+                id="description"
+                name="description"
+                required
+                placeholder="Description"
+                #description="ngModel"
+                ngModel></textarea>
     </div>
   </form>
 

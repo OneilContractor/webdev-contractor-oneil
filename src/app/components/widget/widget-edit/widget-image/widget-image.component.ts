@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -10,9 +9,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class WidgetImageComponent implements OnInit {
 
-  nameImage: string;
-  textImage: string;
-  urlImage: string;
+  url: string;
   widthImage: string;
   userId: string;
   websiteId: string;
@@ -20,79 +17,55 @@ export class WidgetImageComponent implements OnInit {
   widgetId: string;
   widget = {};
   widgets = [{}];
-  widgetEdit: Boolean;
-  uploadImage: String;
+  error = '';
+  baseUrl = 'http://localhost:3100';
 
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute,
               private router: Router) {
   }
 
-  baseUrl = environment.baseUrl;
-
   ngOnInit() {
     this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
-      if (this.widgetId) {
-        this.widgetService.findWidgetById(this.widgetId)
-          .subscribe((widget) => {
+      this.widgetService.findWidgetById(this.widgetId)
+        .subscribe(
+          (widget: any) => {
             this.widget = widget;
-            this.widgetEdit = true;
-            this.nameImage = this.widget['name'];
-            this.textImage = this.widget['text'];
-            this.urlImage = this.widget['url'];
             this.widthImage = this.widget['width'];
-            this.uploadImage = this.widget['upload'];
-          });
-      }
+            this.url = this.widget['url'];
+          }
+        );
     });
   }
 
-  createWidget() {
-    this.widget['widgetType'] = 'IMAGE';
-    this.widget['text'] = this.textImage;
-    this.widget['url'] = this.urlImage;
-    this.widget['width'] = this.widthImage;
-    this.widget['upload'] = this.uploadImage;
-    this.widget['name'] = this.nameImage;
-    this.widgetService.createWidget(this.pageId, this.widget)
-      .subscribe((data) => {
-        if (data) {
-          this.widget = data;
-          this.router.navigate(['/user', this.userId, 'website',
-            this.websiteId, 'page', this.pageId, 'widget']);
-        }
-      });
-  }
-
   updateWidget() {
-    this.widget['widgetType'] = 'IMAGE';
-    this.widget['text'] = this.textImage;
-    this.widget['url'] = this.urlImage;
-    this.widget['width'] = this.widthImage;
-    this.widget['upload'] = this.uploadImage;
-    this.widget['name'] = this.nameImage;
-    this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe((data) => {
-        if (data) {
-          this.widget = data;
-          this.router.navigate(['/user', this.userId, 'website',
-            this.websiteId, 'page', this.pageId, 'widget']);
-        }
-      });
+    if ( this.url ) {
+      this.widget['widgetType'] = 'IMAGE';
+      this.widget['width'] = this.widthImage;
+      this.widget['url'] = this.url;
+      this.widgetService.updateWidget(this.widgetId, this.widget)
+        .subscribe(
+          (widgets: any) => {
+            this.widgets = widgets;
+            this.router.navigate(['user/', 'website', this.widgetId, 'page', this.pageId, 'widget']);
+          }
+        );
+    } else {
+      this.error = 'Please enter the URL of the image';
+    }
   }
 
-  deleteWidget() {
+  delete() {
     this.widgetService.deleteWidget(this.widgetId)
-      .subscribe((data) => {
-        if (data === 200) {
-          this.router.navigate(['/user', this.userId, 'website',
-            this.websiteId, 'page', this.pageId, 'widget']);
+      .subscribe(
+        (widgets: any) => {
+          this.widgets = widgets;
+          this.router.navigate(['user/', 'website', this.widgetId, 'page', this.pageId, 'widget']);
         }
-      });
+      );
   }
 
 }

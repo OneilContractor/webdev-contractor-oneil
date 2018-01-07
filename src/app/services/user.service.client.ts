@@ -9,79 +9,61 @@ import { Router } from '@angular/router';
 
 export class UserService {
 
-  constructor(private http: Http) {
-  }
+  constructor(private  http: Http) { }
 
-  baseUrl = environment.baseUrl;
+  users = [
+    {_id: '123', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder' , email: 'alice@webdev.com' },
+    {_id: '234', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley', email: 'bob@webdev.com'  },
+    {_id: '345', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia' , email: 'charly@webdev.com' },
+    {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi', email: 'jannunzi@webdev.com' }
+  ];
 
   api = {
     'createUser'   : this.createUser,
-    'findUserById' : this.findUserById,
-    'findUserByUsername' : this.findUserByUsername,
-    'updateUser' : this.updateUser,
-    'deleteUser' : this.deleteUser,
-    'findUserByCredentials' : this.findUserByCredentials
+    'findUserById' : this.findUserById
   };
 
   createUser(user: any) {
-    user._id = Math.floor(Math.random() * 10000).toString();
-    return this.http.post(this.baseUrl + '/api/user/', user)
+    console.log('abc');
+    const url = environment.baseUrl + '/api/user';
+    return this.http.post(url, user)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
 
-  findUserById(userId: string) {
-    return this.http.get(this.baseUrl + '/api/user/' + userId)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+  findUserById(userId: String) {
+    const url = environment.baseUrl + '/api/user/' + userId;
+    return this.http.get(url)
+      .map((response: Response) => {
+        return response.json();
+      });
   }
 
-  findUserByUsername(username: string) {
-    return this.http.get(this.baseUrl + '/api/user?username=' + username)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+  findUserByUsername(username: String) {
+    const url = environment.baseUrl + '/api/user?username=' + username;
+    return this.http.get(url)
+      .map((response: Response) => {
+        return response.json();
+      });
   }
 
-  updateUser(userId: string, user: any) {
-    return this.http.put(this.baseUrl + '/api/user/' + userId, user)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+  findUserByCredentials(username, password) {
+    return this.http.get(environment.baseUrl + '/api/user?username=' + username + '&password=' + password)
+      .map((response: Response) => {
+        return response.json();
+      });
   }
-
-  deleteUser(userId: string) {
-    return this.http.delete(this.baseUrl + '/api/user/' + userId)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+  updateUser(userId, user) {
+    return this.http.put(environment.baseUrl + '/api/user/' + userId, user)
+      .map((response: Response) => {
+        return response.json();
+      });
   }
-
-  findUserByCredentials(username: string, password: string) {
-    return this.http.get(this.baseUrl + '/api/user?username=' + username + '&password=' + password)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
+  deleteUser(userId) {
+    const url = environment.baseUrl + '/api/user/' + userId;
+    return this.http.delete(url);
   }
-
 }

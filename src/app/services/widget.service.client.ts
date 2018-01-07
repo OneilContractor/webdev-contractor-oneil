@@ -9,80 +9,68 @@ import { Router } from '@angular/router';
 
 export class WidgetService {
 
-  constructor(private http: Http) {
-  }
-  baseUrl = environment.baseUrl;
+  constructor(private http: Http) {}
+
+  widgets  = [
+    { '_id': '123', 'widgetType': 'HEADING', 'pageId': '890', 'size': 2, 'text': 'GIZMODO'},
+    { '_id': '234', 'widgetType': 'HEADING', 'pageId': '321', 'size': 4, 'text': 'Lorem ipsum'},
+    { '_id': '345', 'widgetType': 'IMAGE', 'pageId': '890', 'width': '100%',
+      'url': 'http://lorempixel.com/400/200/'},
+    { '_id': '456', 'widgetType': 'HTML', 'pageId': '321', 'text': '<p>Lorem ipsum</p>'},
+    { '_id': '567', 'widgetType': 'HEADING', 'pageId': '321', 'size': 4, 'text': 'Lorem ipsum'},
+    { '_id': '678', 'widgetType': 'YOUTUBE', 'pageId': '890', 'width': '100%',
+      'url': 'https://www.youtube.com/embed/AM2Ivdi9c4E' },
+    { '_id': '789', 'widgetType': 'HTML', 'pageId': '890', 'text': '<p>Lorem ipsum</p>'}
+  ];
+
 
   api = {
     'createWidget'   : this.createWidget,
-    'findWidgetById' : this.findWidgetById,
-    'findWidgetsByPageId' : this.findWidgetsByPageId,
-    'updateWidget' : this.updateWidget,
-    'deleteWidget' : this.deleteWidget
+    'findWidgetsByPageId' : this.findWidgetsByPageId
   };
 
-  createWidget(pageId: string, widget: any) {
-    widget._id = Math.floor(Math.random() * 10000).toString();
+  createWidget(pageId: String, widget: any) {
     widget.pageId = pageId;
-    return this.http.post(this.baseUrl + '/api/page/' + pageId + '/widget', widget)
+    return this.http.post(environment.baseUrl + '/api/page/' + pageId + '/widget', widget)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
 
-  findWidgetById(widgetId: string) {
-    return this.http.get(this.baseUrl + '/api/widget/' + widgetId)
+  findWidgetsByPageId(pageId: String) {
+    return this.http.get(environment.baseUrl + '/api/page/' + pageId + '/widget')
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
 
-  findWidgetsByPageId(pageId: string) {
-    return this.http.get(this.baseUrl + '/api/page/' + pageId + '/widget')
+  findWidgetById(widgetId: String) {
+    return this.http.get(environment.baseUrl + '/api/widget/' + widgetId)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
 
-  updateWidget(widgetId: string, widget: any) {
-    return this.http.put(this.baseUrl + '/api/widget/' + widgetId, widget)
+  updateWidget(widgetId, widget) {
+    return this.http.put(environment.baseUrl + '/api/widget/' + widgetId, widget)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
-
-  deleteWidget(widgetId: string) {
-    return this.http.delete(this.baseUrl + '/api/widget/' + widgetId)
+  deleteWidget(widgetId) {
+    return this.http.delete(environment.baseUrl + '/api/widget/' + widgetId)
       .map(
         (res: Response) => {
-          const data = res.json();
-          return data;
+          return res.json();
         }
       );
   }
-
-  updateWidgetPosition(pageId, initial, final) {
-    const url = this.baseUrl + '/api/page/' + pageId + '/widget?initial='
-      + initial + '&final=' + final;
-    return this.http.put(url, null)
-      .map(
-        (res: Response) => {
-          const data = res.json();
-          return data;
-        }
-      );
-  }
-
 }

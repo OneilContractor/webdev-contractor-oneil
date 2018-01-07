@@ -1,79 +1,45 @@
-module.exports = function () {
-  var model;
-  var mongoose = require("mongoose");
-  var UserSchema = require("./user.schema.server")();
-  var UserModel = mongoose.model("UserModel", UserSchema);
+var mongoose = require('mongoose');
+var UserSchema = require('./user.schema.server');
+var db = require('../models.server');
 
-  UserModel.setModel = setModel;
-  UserModel.createUser = createUser;
-  UserModel.findUserById = findUserById;
-  UserModel.findUserByUsername = findUserByUsername;
-  UserModel.findUserByCredentials = findUserByCredentials;
-  UserModel.updateUser = updateUser;
-  UserModel.deleteUser = deleteUser;
+var UserModel = mongoose.model("UserModel", UserSchema);
 
-  return UserModel;
+UserModel.findUserById = findUserById;
+UserModel.createUser = createUser;
+UserModel.findAllUsers = findAllUsers;
+UserModel.findUserByCredentials = findUserByCredentials;
+UserModel.findUserbyUsername = findUserbyUsername;
+UserModel.updateUser = UpdateUser;
+UserModel.deleteUser = deleteUser;
 
-  function setModel(_model) {
-    model = _model;
-  }
+module.exports = UserModel;
 
-  function createUser(user) {
-    return UserModel.create(user);
-  }
+function  findUserbyUsername(username) {
+  return UserModel.findOne({username : username});
+}
 
-  function findUserById(userId) {
-    return UserModel.findById(userId);
-  }
+function findUserByCredentials(username, password){
+  console.log('inside model find user by cred');
+  return UserModel.findOne({username: username, password: password});
+}
 
-  function findUserByUsername(username) {
-    return UserModel.findOne({userName: username});
-  }
+function findAllUsers(){
+  return UserModel.find();
+}
 
-  function findUserByCredentials(_username, _password) {
-    return UserModel.findOne({
-      userName: _username,
-      password: _password
-    });
-  }
+function findUserById(userId){
+  return UserModel.findOne({_id: userId});
+}
 
-  function updateUser(userId, updatedUser) {
-    return UserModel.update({_id: userId}, {$set: updatedUser});
-  }
+function deleteUser(userId) {
+  return UserModel.remove({_id: userId});
+}
 
-  function recursiveDelete(websitesOfUser, userId) {
-    if (websitesOfUser.length === 0) {
-      return UserModel
-        .remove({_id: userId})
-        .then(function (response) {
-          if (response.result.n === 1 && response.result.ok === 1) {
-            return response;
-          }
-        }, function (err) {
-          return err;
-        });
-    }
+function createUser(user){
+  console.log(user);
+  return UserModel.create(user);
+}
 
-    return model.websiteModel
-      .deleteWebsiteAndChildren(websitesOfUser.shift())
-      .then(function (response) {
-        if (response.result.n === 1 && response.result.ok === 1) {
-          return recursiveDelete(websitesOfUser, userId);
-        }
-      }, function (err) {
-        return err;
-      });
-  }
-
-  function deleteUser(userId) {
-    return UserModel
-      .findById({_id: userId})
-      .then(function (user) {
-        var websitesOfUser = user.websites;
-        return recursiveDelete(websitesOfUser, userId);
-      }, function (err) {
-        return err;
-      });
-  }
-
-};
+function UpdateUser(id, user) {
+  return UserModel.update({_id: id}, user);
+}

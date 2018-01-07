@@ -1,22 +1,17 @@
-<div *ngIf="widgetEdit;then edit else new"></div>
-<ng-template #edit>
-  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
+ <nav class="navbar navbar-default bg-primary navbar-fixed-top">
     <div class="container-fluid">
-      <!--tick mark-->
       <div class="navbar-brand pull-right right-margin-fix">
-        <a (click)="updateWidget()"
+        <a (click)="updateWidget()" [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
            class="navbar-link">
           <span class="glyphicon glyphicon-ok glyphicon-black"></span>
         </a>
       </div>
-      <!--tick mark-->
       <div class="navbar-brand pull-left left-margin-fix">
         <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
            class="navbar-link">
           <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
         </a>
       </div>
-      <!--heading on the nav bar-->
       <p class="navbar-header pull-left">
         <a class="navbar-brand titlePages">
           <b>Widget Edit</b>
@@ -24,91 +19,57 @@
       </p>
     </div>
   </nav>
-</ng-template>
-<ng-template #new>
-  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
-    <div class="container-fluid">
-      <!--tick mark-->
-      <div class="navbar-brand pull-right right-margin-fix">
-        <a (click)="createWidget()"
-           class="navbar-link">
-          <span class="glyphicon glyphicon-ok glyphicon-black"></span>
-        </a>
-      </div>
-      <!--tick mark-->
-      <div class="navbar-brand pull-left left-margin-fix">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']"
-           class="navbar-link">
-          <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
-        </a>
-      </div>
-      <!--heading on the nav bar-->
-      <p class="navbar-header pull-left">
-        <a class="navbar-brand titlePages">
-          <b>New Widget</b>
-        </a>
-      </p>
-    </div>
-  </nav>
-</ng-template>
 
 
 <div class="container-fluid scroller">
   <form>
     <div class="form-group">
-      <label for="text">
+      <label>
         Text
       </label>
-      <input [(ngModel)]="widget['text']"
-             name="text"
-             id="text"
+      <input [(ngModel)]="text"
              class="form-control"
-             required />
+             name="text"/>
     </div>
     <div class="form-group">
-      <label for="row">
+      <label>
         Rows
       </label>
-      <input [(ngModel)]="widget['rows']"
-             name="row"
-             id="row"
-             class="form-control"
-             type="number"
-             required />
+      <input [(ngModel)]="rows" class="form-control" type="number" name="rows"/>
     </div>
     <div class="form-group">
-      <label for="Name">
+      <label>
         Name
       </label>
-      <input [(ngModel)]="widget['name']"
+      <input [(ngModel)]="name"
              type="text"
              class="form-control"
              id="Name"
              name="name"
-             placeholder="Name"
-             required />
+             placeholder="Name">
     </div>
     <div class="form-group">
-      <label for="placeholder">
+      <label>
         Placeholder
       </label>
-      <input [(ngModel)]="widget['placeholder']"
-             name="placeholder"
-             id="placeholder"
-             class="form-control"
-             required/>
+      <input [(ngModel)]="placeholder" class="form-control" name="placeholder" required/>
     </div>
     <div class="form-group">
-      <div class="input-group">
-        <input type="text"
-               readonly
-               value="Formatted"
-               class="form-control"/>
-        <span class="input-group-addon">
-            <input [(ngModel)]="widget['formatted']"
-                   name="formatted"
-                   type="checkbox"/></span>
-      </div>
+      <input type="text"
+             readonly
+             value="Formatted"
+             class="form-control"/>
+      <span class="input-group-addon">
+         <input [(ngModel)]="formatted"
+                type="checkbox"
+                name="formatted"/>
+      </span>
+    </div>
+    <div class="form-group">
+      <a (click)="deleteWidget()" [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
+         class="btn btn-danger btn-block ">
+        Delete
+      </a>
     </div>
   </form>
 </div>

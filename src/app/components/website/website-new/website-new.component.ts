@@ -49,7 +49,7 @@ export class WebsiteNewComponent implements OnInit {
     this.website = this.webService.createWebsite(this.userId, website)
       .subscribe(
         (new_website: any) => {
-           this.router.navigate(['user/' + this.userId, 'website']);
+          this.router.navigate(['user/' + this.userId, 'website']);
         }
       );
   }
