@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
-    alert('inside login');
     this.userService.findUserByCredentials(this.username, this.password )
       .subscribe( ( user: any ) => {
         if (user) {

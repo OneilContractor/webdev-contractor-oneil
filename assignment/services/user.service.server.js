@@ -30,7 +30,6 @@ module.exports = function(app){
     var password = req.query["password"];
     if(username && password)
     {
-      console.log('inside user service find user by cred');
       var promise = userModel.findUserByCredentials(username, password);
       promise.then(function(user){
         res.json(user);

@@ -19,7 +19,6 @@ function  findUserbyUsername(username) {
 }
 
 function findUserByCredentials(username, password){
-  console.log('inside model find user by cred');
   return UserModel.findOne({username: username, password: password});
 }
 
