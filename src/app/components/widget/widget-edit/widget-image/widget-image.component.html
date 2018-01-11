@@ -1,7 +1,7 @@
  <nav class="navbar navbar-default bg-primary navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-brand pull-right right-margin-fix">
-        <a (click)="updateWidget()" [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"
+        <a (click)="updateWidget()"
            class="navbar-link">
           <span class="glyphicon glyphicon-ok glyphicon-black"></span>
         </a>
@@ -20,91 +20,6 @@
     </div>
   </nav>
 
-<!--<div class="container-fluid scroller">-->
-  <!--<form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">-->
-    <!--<div class="form-group">-->
-      <!--<label for="nameImage">-->
-        <!--Name-->
-      <!--</label>-->
-      <!--<input [(ngModel)]="nameImage"-->
-             <!--required-->
-             <!--name="nameImage"-->
-             <!--type="text"-->
-             <!--class="form-control"-->
-             <!--id="nameImage"-->
-             <!--placeholder="">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="textImage">-->
-        <!--Text-->
-      <!--</label>-->
-      <!--<input [(ngModel)]="textImage"-->
-             <!--required-->
-             <!--name="textImage"-->
-             <!--type="text"-->
-             <!--class="form-control"-->
-             <!--id="textImage"-->
-             <!--placeholder="">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="urlImage">-->
-        <!--URL-->
-      <!--</label>-->
-      <!--<input [(ngModel)]="urlImage"-->
-             <!--required-->
-             <!--name="urlImage"-->
-             <!--type="text"-->
-             <!--class="form-control"-->
-             <!--id="urlImage"-->
-             <!--placeholder="https://www.youtube.com/watch?v=ue80QwXMRHg">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="widthImage">-->
-        <!--Width-->
-      <!--</label>-->
-      <!--<input [(ngModel)]="widthImage"-->
-             <!--required-->
-             <!--name="widthImage"-->
-             <!--type="text"-->
-             <!--class="form-control"-->
-             <!--id="widthImage"-->
-             <!--placeholder="">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="myFile">-->
-        <!--Upload-->
-      <!--</label>-->
-      <!--<input [(ngModel)]="uploadImage"-->
-             <!--required-->
-             <!--name="myFile"-->
-             <!--type="file"-->
-             <!--class="form-control"-->
-             <!--id="myFile"-->
-             <!--value="100%">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<input  name="widgetId" value="{{widgetId}}"   style="display: none"/>-->
-      <!--<input  name="websiteId" value="{{websiteId}}"   style="display: none"/>-->
-      <!--<input  name="pageId" value="{{pageId}}"   style="display: none"/>-->
-      <!--<input  name="userId" value="{{userId}}"   style="display: none"/>-->
-      <!--<button type="submit" class="form-control btn btn-primary">-->
-        <!--Upload Image-->
-      <!--</button>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<a (click)="deleteWidget()" [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']"-->
-         <!--class="btn btn-danger btn-block">-->
-        <!--Delete-->
-      <!--</a>-->
-    <!--</div>-->
-  <!--</form>-->
-<!--</div>-->
 
  <div class="container-fluid scroller">
    <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">

@@ -1,8 +1,9 @@
+<form (ngSubmit) = "updateWebsite()" #f="ngForm">
 <nav class="navbar navbar-default navbar-fixed-top blue">
   <div class="row container-fluid">
     <div class="col-sm-4 hidden-xs">
       <div class="navbar-text pull-left" style="margin-left: 0px;">
-        <a [routerLink]="['/user', userId, 'website']">
+        <a [routerLink]="['/user', 'website']">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
       </div>
@@ -12,19 +13,19 @@
         </a>
       </div>
       <div class="navbar-text pull-right">
-        <a [routerLink]="['/user', userId, 'website', 'new']">
+        <a [routerLink]="['/user', 'website', 'new']">
           <span class="glyphicon glyphicon-plus"></span>
         </a>
       </div>
     </div>
     <div class="col-sm-8">
       <div class="navbar-text pull-left websites">
-        <a [routerLink]="['/user', userId, 'website']">
+        <a [routerLink]="['/user', 'website']">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
       </div>
       <div class="navbar-text pull-right websites">
-        <a [routerLink]="['/user', userId, 'website']" (click)="updateWebsite()">
+        <a (click)="updateWebsite()">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </div>
@@ -40,7 +41,7 @@
 <div class="row container-fluid">
   <div class="col-sm-4 hidden-xs hidden-nav">
     <ul class="list-group">
-      <div *ngFor="let website of websites">
+      <div *ngFor="let website of userWebsites">
         <li class="list-group-item">
           <a [routerLink]="['/user', userId, 'website', website._id,'page']">
             {{website.name}}
@@ -54,32 +55,28 @@
     </ul>
   </div>
   <div class="col-xs-12 col-sm-8 pull-right">
-    <form>
       <div class="form-group" style="margin-top: 70px;">
-        <label for="websiteName">Website Name</label>
-        <input [(ngModel)]="websiteName"
-               name="websiteName"
-               required
-               placeholder="Name" type="text" class="form-control mr-5" id="websiteName">
+        <label class="margin-top">Website Name</label>
+        <input class="form-control"
+               type="text"
+               id = "name"
+               [(ngModel)] = "webName"
+               placeholder="Name"
+               name="name"
+               required/>
+        <label class="margin-top">Website Description</label>
+        <textarea class="form-control"
+                  id="description"
+                  name="description"
+                  [(ngModel)] = "webDescription"
+                  placeholder="Description">
+        </textarea>
       </div>
-    </form>
-
-    <form>
-      <div class="form-group">
-        <label for="websiteDescription">Website Description</label>
-        <textarea [(ngModel)]="websiteDescription"
-                  name="websiteDescription"
-                  required
-                  class="form-control mr-5"
-                  rows="5"
-                  id="websiteDescription"></textarea>
-      </div>
-    </form>
 
     <div class="form-group">
       <a class="btn btn-danger btn-block "
          (click)="deleteWebsite()"
-         [routerLink]="['/user', userId, 'website']">
+         [routerLink]="['/user', 'website']">
         Delete
       </a>
     </div>
@@ -91,10 +88,11 @@
 <nav class="navbar navbar-default navbar-fixed-bottom blue">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId]">
+      <a [routerLink]="['/user']">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </p>
 
   </div>
 </nav>
+</form>

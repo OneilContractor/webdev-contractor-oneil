@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <p class="navbar-text pull-left">
-      <a [routerLink]="['/user', userId, 'website']" class="navbar-link">
+      <a [routerLink]="['/user', 'website']" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left glyphicon-black" ></span>
       </a>
     </p>
@@ -16,7 +16,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId, 'website', websiteId, 'page', 'new']" class="navbar-link">
+      <a [routerLink]="['/user', 'website', wid, 'page', 'new']" class="navbar-link">
         <span class="glyphicon glyphicon-plus glyphicon-black"></span>
       </a>
     </p>
@@ -29,7 +29,7 @@
 
 <div class="container-fluid scroller">
   <ul class="list-group">
-    <div *ngFor="let page of pages">
+    <div *ngFor="let page of websitePages">
       <li class="list-group-item">
         <a [routerLink]="[page._id, 'widget']">
           {{page.name}}
@@ -46,7 +46,7 @@
   <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
     <div class="container-fluid">
       <p class="navbar-text pull-right">
-        <a [routerLink]="['/user', userId]">
+        <a [routerLink]="['/user']">
           <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
         </a>
       </p>

@@ -1,3 +1,8 @@
+<form (ngSubmit) = "editProfile()" #f="ngForm">
+  <div *ngIf="error"
+       class="alert alert-danger">
+    {{error}}
+  </div>
 <nav class="navbar navbar-default navbar-fixed-top blue" >
   <div class="container-fluid">
 
@@ -10,7 +15,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId]" (click)="editProfile()" class="navbar-link">
+      <a [routerLink]="['/user']" (click)="editProfile()" class="navbar-link">
         <span class="glyphicon glyphicon-ok" ></span>
       </a>
     </p>
@@ -24,42 +29,45 @@
 <!--</div>-->
 
 <div class="container-fluid scroller">
-  <form #f="ngForm">
-    <div class="form-group" >
-      <label for="username">Username</label>
-      <input name="username"
-             [(ngModel)]="username"
-             type="text" class="form-control" id="username">
-    </div>
-  </form>
+  <label for="username" class="margin-top">Username</label>
+  <input type="text"
+         id="username"
+         name="username"
+         [(ngModel)]="username"
+         class="form-control" />
 
-  <form #f="ngForm">
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" name="password" [(ngModel)]="password" class="form-control" id="password">
-    </div>
-  </form>
+  <label for="password" class="margin-top">Password</label>
+  <input
+    [(ngModel)]= 'password'
+    type="password"
+    class="form-control"
+    id="password"
+    name="password"
+    disabled="disabled">
 
-  <form #f="ngForm">
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input name="firstName" [(ngModel)]="firstName" type="text" class="form-control" id="firstName">
-    </div>
-  </form>
+  <label for="email"  class="margin-top">Email address</label>
+  <input
+    [(ngModel)]= 'email'
+    type="email"
+    class="form-control"
+    id="email"
+    name="email">
 
-  <form #f="ngForm">
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input name="lastName" [(ngModel)]="lastName" type="text" class="form-control" id="lastName">
-    </div>
-  </form>
+  <label for="first-name"  class="margin-top">First Name</label>
+  <input
+    [(ngModel)]= 'firstName'
+    type="text"
+    class="form-control"
+    id="first-name"
+    name="first-name">
+
   <div class="form-group">
-    <button class="btn btn-primary btn-block" [routerLink]="['/user', userId, 'website']">
+    <button class="btn btn-primary btn-block" [routerLink]="['/user', 'website']">
       Websites
     </button>
   </div>
   <div class="form-group">
-    <a class="btn btn-danger btn-block "
+    <a class="btn btn-danger btn-block"
        [routerLink]="['/login']" >Logout</a>
   </div>
 </div>
@@ -68,10 +76,11 @@
 <nav class="navbar navbar-default navbar-fixed-bottom blue" >
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId]">
+      <a [routerLink]="['/user']">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </p>
 
   </div>
 </nav>
+</form>

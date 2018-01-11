@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../services/user.service.client';
 import {WebsiteService} from '../../../services/website.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-website-edit',
@@ -8,49 +11,67 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./website-edit.component.css']
 })
 export class WebsiteEditComponent implements OnInit {
+  @ViewChild('f') websiteEditForm: NgForm;
 
-  userId: string;
-  websiteId: string;
-  websites = [{}];
-  website = {};
-  websiteName: string;
-  websiteDescription: string;
+  user: {};
+  userId: String;
+  wid: String;
+  userWebsites = [{}];
+  webName: String;
+  webDescription: String;
+  constructor(private webService: WebsiteService,
+              private activatedRoute: ActivatedRoute,
+              private userService: UserService,
+              private router: Router,
+              private  sharedService: SharedService) { }
 
-  constructor(private websiteService: WebsiteService,
-              private activatedRoutes: ActivatedRoute) {
+  getUser() {
+    this.user = this.sharedService.user;
+    console.log(this.user);
+    this.userId = this.user['_id'];
+    console.log(this.userId);
   }
 
   ngOnInit() {
-    this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.websiteService.findWebsitesByUser(this.userId)
-        .subscribe((websites) => {
-          this.websites = websites;
-        });
-      this.websiteService.findWebsiteById(this.websiteId)
-        .subscribe((website) => {
-          this.website = website;
-          this.websiteName = this.website['name'];
-          this.websiteDescription = this.website['description'];
-        });
-    });
-  }
-
-  updateWebsite() {
-    this.website['name'] = this.websiteName;
-    this.website['description'] = this.websiteDescription;
-    this.websiteService.updateWebsite(this.websiteId, this.website)
-      .subscribe((website) => {
-        this.website = website;
+    this.getUser();
+    this.activatedRoute.params
+      .subscribe(
+        (params: any) => {
+          this.wid = params['wid'];
+        }
+      );
+    this.webService.findWebsiteById(this.wid)
+      .subscribe(
+        (website: any) => {
+          this.webName = website.name;
+          this.webDescription = website.description;
+        }
+      );
+    this.webService.findWebsitesByUser(this.userId)
+      .subscribe((websites: any) => {
+        this.userWebsites = websites;
       });
+  }
+  updateWebsite() {
+    const editedWebsite = { '_id': this.wid,
+      'name': this.websiteEditForm.value.name,
+      'developerId': this.userId,
+      'description': this.websiteEditForm.value.description };
+    this.webService.updateWebsite(this.wid, editedWebsite )
+      .subscribe(
+        (websites: any) => {
+          this.userWebsites = websites;
+          this.router.navigate(['/user', 'website']);
+        }
+      );
   }
 
   deleteWebsite() {
-    this.websiteService.deleteWebsite(this.websiteId)
-      .subscribe((data) => {
-        if (data === 200) {
+    this.webService.deleteWebsite(this.wid)
+      .subscribe(
+        (website: any) => {
+          this.router.navigate(['/user', 'website']);
         }
-      });
+      );
   }
 }

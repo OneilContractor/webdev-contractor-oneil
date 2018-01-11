@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <p class="navbar-text pull-left">
-      <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" class="navbar-link">
+      <a [routerLink]="['/user', 'website', websiteId, 'page']" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left glyphicon-black"></span>
       </a>
     </p>
@@ -16,7 +16,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']"
+      <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', 'new']"
          class="navbar-link">
         <span class="glyphicon glyphicon-plus glyphicon-black" ></span>
       </a>
@@ -28,117 +28,14 @@
 <br/>
 
 <div class="container-fluid scroller">
-    <!--<div *ngFor="let widget of widgets">-->
-      <!--<div [ngSwitch]="widget['widgetType']">-->
 
-        <!--<div *ngSwitchCase="'HEADING'">-->
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12">-->
-              <!--<div [ngSwitch]="widget['size']">-->
-                <!--<div *ngSwitchCase="1">-->
-                  <!--<h1>{{widget['text']}}</h1>-->
-                <!--</div>-->
-                <!--<div *ngSwitchCase="2">-->
-                  <!--<h2>{{widget['text']}}</h2>-->
-                <!--</div>-->
-                <!--<div *ngSwitchCase="3">-->
-                  <!--<h3>{{widget['text']}}</h3>-->
-                <!--</div>-->
-                <!--<div *ngSwitchCase="4">-->
-                  <!--<h4>{{widget['text']}}</h4>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="widget-settings-icons">-->
-                <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">-->
-                  <!--<span class="glyphicon glyphicon-cog"></span>-->
-                <!--</a>-->
-                <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div *ngSwitchCase="'YOUTUBE'">-->
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12" class="youtube-widget">-->
-              <!--<iframe [width]="widget['width']"-->
-                      <!--height="300"-->
-                      <!--&gt;-->
-              <!--</iframe>-->
-              <!--<div class="widget-settings-icons">-->
-                <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">-->
-                  <!--<span class="glyphicon glyphicon-cog"></span>-->
-                <!--</a>-->
-                <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div *ngSwitchCase="'IMAGE'">-->
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12">-->
-              <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget']" class="thumbnail">-->
-                <!--<img [style.width]="widget['width']"-->
-                     <!--&gt;-->
-              <!--</a>-->
-              <!--<div class="widget-settings-icons">-->
-                <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">-->
-                  <!--<span class="glyphicon glyphicon-cog"></span>-->
-                <!--</a>-->
-                <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div *ngSwitchCase="'HTML'">-->
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12">-->
-              <!--<div [innerHTML]="widget['text']">-->
-              <!--</div>-->
-              <!--<div class="widget-settings-icons">-->
-                <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">-->
-                  <!--<span class="glyphicon glyphicon-cog"></span>-->
-                <!--</a>-->
-                <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div *ngSwitchCase="'TEXT'">-->
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12">-->
-              <!--<div *ngIf="widget['formatted']">-->
-                <!--<quill-editor [(ngModel)]="widget['text']" name="text"></quill-editor>-->
-              <!--</div>-->
-
-              <!--<input *ngIf="!widget.formatted && (!widget['rows ']|| widget['rows']===1)"-->
-                     <!--placeholder="{{widget['placeholder']}}" class="form-control"/>-->
-
-              <!--<textarea *ngIf="!widget['formatted'] && (widget['rows'] > 1)"-->
-                        <!--rows="{{widget['rows']}}" placeholder="{{widget['placeholder']}}"-->
-                        <!--class="form-control">{{widget['text']}}</textarea>-->
-              <!--<div class="widget-settings-icons">-->
-                <!--<a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">-->
-                  <!--<span class="glyphicon glyphicon-cog"></span>-->
-                <!--</a>-->
-                <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-      <!--</div>-->
-    <!--</div>-->
-  <div *ngFor="let widget of widgets">
+  <div *ngFor="let widget of pageWidgets">
 
 
   <div [ngSwitch]="widget['widgetType']">
     <div *ngSwitchCase="'HEADING'">
       <div class= "toolbar">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
+        <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -148,7 +45,7 @@
 
     <div *ngSwitchCase="'HTML'">
       <div class= "toolbar">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
+        <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -158,7 +55,7 @@
 
     <div *ngSwitchCase="'TEXT'">
       <div class="toolbar">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
+        <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -177,7 +74,7 @@
 
     <div *ngSwitchCase="'IMAGE'">
       <div class= "toolbar">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
+        <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -187,7 +84,7 @@
 
     <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
       <div class= "toolbar">
-        <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
+        <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget['_id']]">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <span class="glyphicon glyphicon-list"></span>
@@ -202,16 +99,16 @@
   <nav class="navbar navbar-default bg-primary navbar-fixed-bottom">
     <div class="container-fluid">
       <p class="navbar-text pull-left">
-        <a [routerLink]="['/user', userId]">
+        <a [routerLink]="['/user']">
           <span class="glyphicon glyphicon-play glyphicon-black"></span>
         </a>
-        <a [routerLink]="['/user', userId]">
+        <a [routerLink]="['/user']">
           <span class="glyphicon glyphicon-eye-open glyphicon-black"></span>
         </a>
       </p>
 
       <p class="navbar-text pull-right">
-        <a [routerLink]="['/user', userId]">
+        <a [routerLink]="['/user']">
           <span class="glyphicon glyphicon-user glyphicon-user-blue"></span>
         </a>
       </p>

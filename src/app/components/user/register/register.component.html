@@ -1,60 +1,96 @@
+<form (ngSubmit) = "register()" #f="ngForm">
 <div class="container-fluid">
   <h1>Register</h1>
-  <div *ngIf="errorFlag"
+  <div *ngIf="error"
        class="alert alert-danger">
-    {{errorMsg}}
+    {{error}}
   </div>
 
-  <form (ngSubmit)="register()" #f="ngForm">
-    <div class="form-group">
-  <input name="username"
-         id="username"
-         ngModel=""
-         required=""
-         placeholder="username"
+  <div class="form-group">
+  <input placeholder="username"
          type="text"
-         class="form-control"
-         #userName="ngModel" style="margin-bottom: 5px;"/>
-      <span class="help-block"
-            *ngIf="!userName.valid && userName.touched">
-            Please enter a valid username!
-      </span>
-    </div>
-
-    <div class="form-group">
-  <input name="password"
-         id="password"
-         ngModel=""
-         required=""
-         placeholder="password"
-         type="password"
-         class="form-control"
-         #password="ngModel" style="margin-bottom: 5px;"/>
-      <span class="help-block"
-            *ngIf="!password.valid && password.touched">
-            Please enter a valid Password!
-      </span>
-    </div>
-
-    <div class="form-group">
-  <input name="verifyPassword"
-         id="verifyPassword"
-         ngModel=""
+         class="form-control margin-top"
+         name="username"
          required
-         #verifyPassword="ngModel" placeholder="verify password"
-         type="password" style="margin-bottom: 5px;"
-         class="form-control"/>
-      <span class="help-block"
-            *ngIf="!verifyPassword.valid && verifyPassword.touched">
-            Please re-enter the password!
-      </span>
-    </div>
+         ngModel
+         #username="ngModel"
+         placeholder="Enter a Username"/>
+  <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter username!
+    </span>
+  </div>
+
+  <div class="form-group">
+  <input placeholder="password"
+         type="password"
+         class="form-control margin-top"
+         ngModel
+         #password="ngModel"
+         name="password"
+         placeholder="Choose a password"
+         required/>
+  <span class="help-block" *ngIf="!password.valid && password.touched">
+      Please enter password!
+    </span>
+  </div>
+
+  <div class="form-group">
+  <input type="password"
+         ngModel
+         required
+         name="verifyPassword"
+         #verifyPassword="ngModel"
+         class="form-control margin-top"
+         placeholder="Verify Password"
+         id = "verifyPassword"/>
+  <span class="help-block" *ngIf="!verifyPassword.valid && verifyPassword.touched">
+      Please verify the password!
+    </span>
+  </div>
+
+  <div class="form-group">
+  <input placeholder="Enter First Name"
+         type="text"
+         class="form-control margin-top"
+         name="firstName"
+         required
+         ngModel
+         #firstName="ngModel"/>
+  <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
+      Please enter first name!
+    </span>
+  </div>
+
+  <div class="form-group">
+  <input placeholder="Enter Last name"
+         type="text"
+         class="form-control margin-top"
+         name="lastName"
+         required
+         ngModel
+         #lastName="ngModel"/>
+  <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
+      Please enter last name!
+    </span>
+  </div>
+
+  <div class="form-group">
+  <input placeholder="Enter your email"
+         type="email"
+         class="form-control margin-top"
+         name="email"
+         required
+         ngModel
+         #email="ngModel"/>
+  <span class="help-block" *ngIf="!email.valid && email.touched">
+      Please enter your email!!
+    </span>
+  </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block"
-              [disabled]="!f.valid">
+      <a type="submit" class="btn btn-primary btn-block" (click)="register()">
         Register
-      </button>
+      </a>
     </div>
 
     <div class="form-group">
@@ -63,5 +99,5 @@
         Cancel
       </a>
     </div>
-  </form>
 </div>
+</form>

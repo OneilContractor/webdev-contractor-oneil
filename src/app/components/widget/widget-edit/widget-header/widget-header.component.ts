@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-widget-header',
   templateUrl: './widget-header.component.html',
@@ -9,23 +9,22 @@ import {ActivatedRoute} from '@angular/router';
 export class WidgetHeaderComponent implements OnInit {
 
   constructor(private widgetService: WidgetService,
-              private activatedRoutes: ActivatedRoute) {
+              private activatedRoutes: ActivatedRoute,
+              private router: Router) {
   }
 
   textHeader: string;
   sizeHeader: string;
-  userId: string;
-  websiteId: string;
-  pageId: string;
+  wid: string;
+  pid: string;
   widgetId: string;
   widget = {};
   widgets = [{}];
-
+  error = '';
   ngOnInit() {
     this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.pageId = params['pid'];
+      this.wid = params['wid'];
+      this.pid = params['pid'];
       this.widgetId = params['wgid'];
       this.widgetService.findWidgetById(this.widgetId)
         .subscribe(
@@ -39,15 +38,20 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget() {
-    this.widget['widgetType'] = 'HEADING';
-    this.widget['text'] = this.textHeader;
-    this.widget['size'] = this.sizeHeader;
-    this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.widgets = widgets;
-        }
-      );
+    if (this.textHeader) {
+      this.widget['widgetType'] = 'HEADING';
+      this.widget['text'] = this.textHeader;
+      this.widget['size'] = this.sizeHeader;
+      this.widgetService.updateWidget(this.widgetId, this.widget)
+        .subscribe(
+          (widgets: any) => {
+            this.widgets = widgets;
+            this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']);
+          }
+        );
+    } else {
+      this.error = 'Please enter header text';
+    }
   }
 
   deleteWidget() {
@@ -55,6 +59,7 @@ export class WidgetHeaderComponent implements OnInit {
       .subscribe(
         (widgets: any) => {
           this.widgets = widgets;
+          this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']);
         }
       );
   }

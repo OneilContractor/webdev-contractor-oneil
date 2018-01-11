@@ -2,7 +2,7 @@
   <div class="row container-fluid">
     <div class="col-sm-4 hidden-xs">
       <div class="navbar-text pull-left websites">
-        <a [routerLink]="['/user', userId, 'website']">
+        <a [routerLink]="['/user', 'website']">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
       </div>
@@ -12,14 +12,14 @@
         </a>
       </div>
       <div class="navbar-text pull-right">
-        <a [routerLink]="['/user', userId, 'website', 'new']">
+        <a [routerLink]="['/user', 'website', 'new']">
           <span class="glyphicon glyphicon-plus"></span>
         </a>
       </div>
     </div>
     <div class="col-sm-8">
       <div class="navbar-text pull-left websites">
-        <a [routerLink]="['/user', userId, 'website']">
+        <a [routerLink]="['/user', 'website']">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
       </div>
@@ -42,10 +42,10 @@
     <ul class="list-group">
       <div *ngFor="let website of websites">
         <li class="list-group-item">
-          <a [routerLink]="['/user', userId, 'website', website._id,'page']">
+          <a [routerLink]="['/user', 'website', website._id,'page']">
             {{website.name}}
           </a>
-          <a [routerLink]="['/user', userId, 'website', website._id]"
+          <a [routerLink]="['/user', 'website', website._id]"
              class="pull-right">
             <span class="glyphicon glyphicon-cog"></span>
           </a>
@@ -57,25 +57,25 @@
   <div class="col-xs-12 col-sm-8 pull-right">
     <form #f="ngForm">
       <div class="form-group form-padding">
-        <label for="websiteName">Name</label>
+        <label for="name">Name</label>
         <input ngModel
-               name="websiteName"
-               #websiteName = "ngModel"
+               name="name"
+               #name = "ngModel"
                required
                type="text"
                class="form-control mr-5"
-               id="websiteName"
+               id="name"
                placeholder="Website Name">
       </div>
 
       <div class="form-group">
-        <label for="websiteDescription">Description</label>
+        <label for="description">Description</label>
         <textarea ngModel
-                  name="websiteDescription"
-                  #websiteDescription = "ngModel"
+                  name="description"
+                  #description = "ngModel"
                   required
                   class="form-control mr-5"
-                  id="websiteDescription"
+                  id="description"
                   rows="5" placeholder="Description"></textarea>
       </div>
     </form>
@@ -85,7 +85,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom blue">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user', userId]">
+      <a [routerLink]="['/user']">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </p>

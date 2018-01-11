@@ -31,6 +31,8 @@ import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html
 import {SortableDirective} from './directives/sortable.directive';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
+import { SharedService } from './services/shared.service';
+import {AuthGuard} from "./services/auth-guard.service";
 
 
 
@@ -67,7 +69,7 @@ import { WidgetTextComponent } from './components/widget/widget-edit/widget-text
     QuillEditorModule
   ],
   // Client Side services here
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

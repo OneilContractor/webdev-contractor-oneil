@@ -11,7 +11,7 @@ export class WebsiteService {
 
   constructor(private  http: Http) { }
 
-  websites  = [
+  userWebsites  = [
     { '_id': '123', 'name': 'Facebook',    'developerId': '456', 'description': 'Lorem' },
     { '_id': '123', 'name': 'Tweeter',     'developerId': '456', 'description': 'Lorem' },
     { '_id': '123', 'name': 'Gizmodo',     'developerId': '456', 'description': 'Lorem' },

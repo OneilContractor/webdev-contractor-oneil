@@ -9,13 +9,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class WidgetHtmlComponent implements OnInit {
 
-  textHtml: string;
-  userId: string;
-  websiteId: string;
-  pageId: string;
+  text: string;
+  uId: string;
+  wid: string;
+  pid: string;
   widgetId: string;
   widget = {};
   widgets = [{}];
+  error = '';
   constructor(private widgetService: WidgetService,
               private activatedRoutes: ActivatedRoute,
               private router: Router) {
@@ -23,36 +24,40 @@ export class WidgetHtmlComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.pageId = params['pid'];
-      this.websiteId = params['wgid'];
-      this.widgetService.findWidgetById(this.websiteId)
+      this.wid = params['wid'];
+      this.pid = params['pid'];
+      this.wid = params['wgid'];
+      this.widgetService.findWidgetById(this.wid)
         .subscribe(
           (widget: any) => {
             this.widget = widget;
-            this.textHtml = widget['text'];
+            this.text = widget['text'];
           }
         );
     });
   }
 
   updateWidget() {
-    this.widget['widgetType'] = 'HTML';
-    this.widget['text'] = this.textHtml;
-    this.widgetService.updateWidget(this.websiteId, this.widget)
-      .subscribe(
-        (widgets: any) => {
-          this.router.navigate(['user/' + this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']);
-        }
-      );
+    if ( this.text ) {
+      this.widget['widgetType'] = 'HTML';
+      this.widget['text'] = this.text;
+      this.widgetService.updateWidget(this.wid, this.widget)
+        .subscribe(
+          (widgets: any) => {
+            this.router.navigate(['user/', 'website', this.wid, 'page', this.pid, 'widget']);
+          }
+        );
+    } else {
+      this.error = 'Please enter text of the HTML';
+    }
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.websiteId)
+    this.widgetService.deleteWidget(this.wid)
       .subscribe(
         (widgets: any) => {
           this.widgets = widgets;
+          this.router.navigate(['user/', 'website', this.wid, 'page', this.pid, 'widget']);
         }
       );
   }

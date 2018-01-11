@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -11,21 +11,20 @@ export class WidgetYoutubeComponent implements OnInit {
 
   url: string;
   width: string;
-  userId: string;
-  websiteId: string;
-  pageId: string;
+  wid: string;
+  pid: string;
   wgid: string;
   widget = {};
   widgets = [{}];
 
   constructor(private widgetService: WidgetService,
-              private activatedRoutes: ActivatedRoute) {
+              private activatedRoutes: ActivatedRoute,
+              private router: Router) {
   }
   ngOnInit() {
     this.activatedRoutes.params.subscribe(params => {
-      this.userId = params['uid'];
-      this.websiteId = params['wid'];
-      this.pageId = params['pid'];
+      this.wid = params['wid'];
+      this.pid = params['pid'];
       this.wgid = params['wgid'];
       this.widgetService.findWidgetById(this.wgid)
         .subscribe(
@@ -46,6 +45,7 @@ export class WidgetYoutubeComponent implements OnInit {
       .subscribe(
         (widgets: any) => {
           this.widgets = widgets;
+          this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']);
         }
       );
   }
@@ -55,6 +55,7 @@ export class WidgetYoutubeComponent implements OnInit {
       .subscribe(
         (widgets: any) => {
           this.widgets = widgets;
+          this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']);
         }
       );
   }

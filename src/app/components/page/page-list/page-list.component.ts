@@ -9,10 +9,9 @@ import {PageService} from '../../../services/page.service.client';
   styleUrls: ['./page-list.component.css']
 })
 export class PageListComponent implements OnInit {
-  userId: String;
-  websiteId: String;
+  wid: String;
   pageId: String;
-  pages = [{}];
+  websitePages = [{}];
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private pageService: PageService) { }
@@ -21,14 +20,13 @@ export class PageListComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
-          this.userId = params['uid'];
-          this.websiteId = params['wid'];
+          this.wid = params['wid'];
         }
       );
-    this.pageService.findPageByWebsiteId(this.websiteId)
+    this.pageService.findPageByWebsiteId(this.wid)
       .subscribe(
         (pages: any) => {
-          this.pages = pages;
+          this.websitePages = pages;
         }
       );
   }

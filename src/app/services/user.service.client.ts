@@ -3,13 +3,16 @@ import { Http, RequestOptions, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import {SharedService} from './shared.service';
+
 
 // injecting service into module
 @Injectable()
 
 export class UserService {
+  options: RequestOptions = new RequestOptions();
 
-  constructor(private  http: Http) { }
+  constructor(private router: Router, private  http: Http, private sharedService: SharedService) { }
 
   users = [
     {_id: '123', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder' , email: 'alice@webdev.com' },
@@ -23,8 +26,63 @@ export class UserService {
     'findUserById' : this.findUserById
   };
 
+  loggedIn() {
+    this.options.withCredentials = true;
+    return this.http.post(environment.baseUrl + '/api/loggedIn', '', this.options)
+      .map(
+        (res: Response) => {
+          const user = res.json();
+          if (user !== 0) {
+            this.sharedService.user = user; // setting user so as to share with all components
+            return true;
+          } else {
+            this.router.navigate(['/login']);
+            return false;
+          }
+        }
+      );
+  }
+
+  logout() {
+    this.options.withCredentials = true;
+    return this.http.post(environment.baseUrl + '/api/logout', {}, this.options)
+      .map(
+        (res: Response) => {
+          return res;
+        }
+      );
+  }
+
+  register(newUser: any) {
+    this.options.withCredentials = true;
+    return this.http.post(environment.baseUrl + '/api/register', newUser, this.options)
+      .map(
+        (res: Response) => {
+          alert('entered');
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
+  login(username: String, password: String) {
+
+    this.options.withCredentials = true; // jga
+
+    const body = {
+      username : username,
+      password : password
+    };
+    return this.http.post(environment.baseUrl + '/api/login', body, this.options)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
   createUser(user: any) {
-    console.log('abc');
     const url = environment.baseUrl + '/api/user';
     return this.http.post(url, user)
       .map(

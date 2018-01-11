@@ -3,7 +3,7 @@ import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
 import {NgForm} from '@angular/forms';
-
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-website-new',
@@ -12,46 +12,42 @@ import {NgForm} from '@angular/forms';
 })
 export class WebsiteNewComponent implements OnInit {
   @ViewChild('f') websiteForm: NgForm;
-  userId: string;
-  websites = [{}];
-  name: string;
-  description: string;
-  website: any;
 
-  constructor(private webService: WebsiteService,
-              private activatedRoute: ActivatedRoute,
+  user = {};
+  userId: String;
+  userWebsites = [{}];
+  error = '';
+  constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private router: Router) { }
-
+              private webService: WebsiteService,
+              private router: Router,
+              private sharedService: SharedService) { }
+  getUser() {
+    this.user = this.sharedService.user;
+    this.userId = this.user['_id'];
+  }
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        (params: any) => {
-          this.userId = params['uid'];
-        }
-      );
+    this.getUser();
+
     this.webService.findWebsitesByUser(this.userId)
-      .subscribe(
-        (websites: any) => {
-          this.websites = websites;
-        }
-      );
-
+      .subscribe((websites: any) => {
+        this.userWebsites = websites;
+      });
+    this.user = this.userService.findUserById(this.userId);
   }
-
   createWebsite() {
-    this.name = this.websiteForm.value.websiteName;
-    this.description = this.websiteForm.value.websiteDescription;
-    const website = {
-      name: this.name,
-      description: this.description
-    }
-    this.website = this.webService.createWebsite(this.userId, website)
-      .subscribe(
-        (new_website: any) => {
-          this.router.navigate(['user/' + this.userId, 'website']);
-        }
-      );
+    if (this.websiteForm.value.name) {
+      const newWebsite = {
+        'name': this.websiteForm.value.name,
+        'description': this.websiteForm.value.description
+      };
+      this.webService.createWebsite(this.userId, newWebsite)
+        .subscribe(
+          (new_website: any) => {
+            this.router.navigate(['/user', 'website']);
+          }
+        );
+    } else {
+      this.error = 'Please enter name of website'; }
   }
-
 }

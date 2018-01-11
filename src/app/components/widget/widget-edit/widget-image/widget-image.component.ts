@@ -58,7 +58,7 @@ export class WidgetImageComponent implements OnInit {
     }
   }
 
-  delete() {
+  deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId)
       .subscribe(
         (widgets: any) => {

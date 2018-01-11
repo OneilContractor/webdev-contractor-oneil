@@ -16,19 +16,18 @@ export class PageNewComponent implements OnInit {
               private userService: UserService,
               private router: Router,
               private pageService: PageService) { }
-  userId: string;
-  websiteId: string;
+  wid: String;
   webSitePages = [{}];
   page = {};
+  error = '';
   ngOnInit() {
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
-          this.userId = params['uid'];
-          this.websiteId = params['wid'];
+          this.wid = params['wid'];
         }
       );
-    this.pageService.findPageByWebsiteId(this.websiteId)
+    this.pageService.findPageByWebsiteId(this.wid)
       .subscribe(
         (pages: any) => {
           this.webSitePages = pages;
@@ -37,15 +36,19 @@ export class PageNewComponent implements OnInit {
   }
 
   createPage() {
-    const newPage = {
-      'name' : this.pageForm.value.name,
-      'description' : this.pageForm.value.description
-    };
-    this.page = this.pageService.createPage(this.websiteId, newPage)
-      .subscribe(
-        (page: any) => {
-          this.router.navigate(['user/', this.userId, 'website', this.websiteId, 'page']);
-        }
-      );
+    if (this.pageForm.value.name) {
+      const newPage = {
+        'name': this.pageForm.value.name,
+        'description': this.pageForm.value.description
+      };
+      this.page = this.pageService.createPage(this.wid, newPage)
+        .subscribe(
+          (page: any) => {
+            this.router.navigate(['/user', 'website', this.wid, 'page']);
+          }
+        );
+    } else {
+      this.error = 'Please enter name of the page';
+    }
   }
 }

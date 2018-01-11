@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
+import {SharedService} from '../../../services/shared.service';
+
 
 @Component({
   selector: 'app-register',
@@ -11,29 +13,37 @@ import {UserService} from '../../../services/user.service.client';
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   errorFlag: boolean;
-  errorMsg = '';
+  error = '';
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private sharedService: SharedService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
   }
 
   register() {
-      const user = {
-        username: this.registerForm.value.username,
-        password: this.registerForm.value.password
-      };
-      alert(user.username);
-      this.userService.createUser(user)
-        .subscribe(
-          (user1: any) => {
-            this.errorFlag = false;
-            this.router.navigate(['user/' + user1._id]);
-          },
-          (error: any) => {
-            this.errorFlag = true;
-          }
-        );
+    const username = this.registerForm.value.username;
+    const password = this.registerForm.value.password;
+    if (username && password) {
+      if (this.registerForm.value.password === this.registerForm.value.verifyPassword) {
+        const user = {
+          username: this.registerForm.value.username,
+          password: this.registerForm.value.password,
+          firstName: this.registerForm.value.firstName,
+          lastName: this.registerForm.value.lastName,
+          email: this.registerForm.value.email
+        };
+        this.userService.register(user)
+          .subscribe((regUser) => {
+          alert('registered');
+            this.sharedService.user = regUser;
+            this.router.navigate(['/login']);
+          });
+      } else {
+        this.error = 'Passwords do not match!';
+      }
+    } else {
+      this.error = 'Please enter value for username and password';
+    }
     }
 }
